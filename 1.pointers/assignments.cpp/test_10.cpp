@@ -24,5 +24,8 @@ int main()
 
     cout << my_fun(c, b, a);
 
+    cout << endl;
+    cout << c;
+
     return 0;
 }
