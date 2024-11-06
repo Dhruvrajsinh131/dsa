@@ -3,39 +3,44 @@ using namespace std;
 
 int main()
 {
-    int m, n;
 
-    cout << "Enter number of rows (m) and columns (n): ";
-    cin >> m >> n;
+    int r, c;
 
-    int **p = new int *[m];
+    cout << "Enter the number of rows (r) and column (c) : ";
+    cin >> r >> c;
 
-    for (int i = 0; i < m; i++)
+    int **p = new int *[r];
+
+    for (int i = 0; i < r; i++)
     {
-        p[i] = new int[n];
+        p[i] = new int[c];
 
-        cout << "Elements for  row" << i << " : ";
-        for (int j = 0; j < n; j++)
+        for (int j = 0; j < c; j++)
         {
+            cout << "Enter values for row index " << i << " : ";
             cin >> p[i][j];
         }
-    }
 
-    for (int i = 0; i < m; i++)
-    {
-        for (int j = 0; j < n; j++)
-        {
-            cout << p[i][j] << " ";
-        }
         cout << endl;
     }
 
-    for (int i = 0; i < m; i++)
+    for (int i = 0; i < r; i++)
+
+    {
+        for (int j = 0; j < c; j++)
+        {
+            cout << p[i][j] << " ";
+        }
+
+        cout << endl;
+    }
+
+    for (int i = 0; i < r; i++)
     {
         delete[] p[i];
     }
 
     delete[] p;
 
-    return 0; // Indicate successful completion
+    return 0;
 }
