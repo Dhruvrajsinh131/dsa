@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-int max(int a, int b)
+inline int max(int a, int b) // Inline function
 {
 
     return (a > b) ? a : b;
