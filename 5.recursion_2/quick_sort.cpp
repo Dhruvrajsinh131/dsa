@@ -22,7 +22,7 @@ int partition(int arr[], int low, int high)
         }
     }
     swap(arr[i + 1], arr[high]);
-    i + 1;
+    return i + 1;
 }
 
 void quickSort(int arr[], int low, int high)
@@ -38,8 +38,8 @@ void quickSort(int arr[], int low, int high)
 
 int main()
 {
-    int arr[] = {10, 7, 8, 9, 1, 5};
-    int n = 6;
+    int arr[] = {10, 7, 8, 9, 1, 5, 5};
+    int n = 7;
 
     cout << "Original array: ";
     for (int i = 0; i < n; i++)
