@@ -8,32 +8,67 @@ void swap(int &a, int &b)
     b = temp;
 }
 
-int partition(int arr[], int low, int high)
-{
-    int pivot = arr[high];
-    int i = low - 1;
+// int partition(int arr[], int low, int high)
+// {
+//     int pivot = arr[high];
+//     int i = low - 1;
 
-    for (int j = low; j <= high - 1; j++)
+//     for (int j = low; j <= high - 1; j++)
+//     {
+//         if (arr[j] < pivot)
+//         {
+//             i++;
+//             swap(arr[i], arr[j]);
+//         }
+//     }
+//     swap(arr[i + 1], arr[high]);
+//     return i + 1;
+// }
+
+// void quickSort(int arr[], int low, int high)
+// {
+//     if (low < high)
+//     {
+//         int pi = partition(arr, low, high);
+
+//         quickSort(arr, low, pi - 1);
+//         quickSort(arr, pi + 1, high);
+//     }
+// }
+
+void quickSort(int *arr, int left, int right)
+{
+    if (left >= right)
     {
-        if (arr[j] < pivot)
+        return;
+    }
+    int l = left;
+    int r = right;
+    int mid = left + (right - left) / 2;
+    int pivot = arr[mid];
+
+    while (l <= r)
+    {
+        while (arr[l] < pivot)
         {
-            i++;
-            swap(arr[i], arr[j]);
+            l++;
+        }
+        while (arr[r] > pivot)
+        {
+            r--;
+        }
+
+        if (l <= r)
+        {
+            swap(arr[l], arr[r]);
+            l++;
+            r--;
         }
     }
-    swap(arr[i + 1], arr[high]);
-    return i + 1;
-}
-
-void quickSort(int arr[], int low, int high)
-{
-    if (low < high)
-    {
-        int pi = partition(arr, low, high);
-
-        quickSort(arr, low, pi - 1);
-        quickSort(arr, pi + 1, high);
-    }
+    if (left < r)
+        quickSort(arr, left, r);
+    if (l < right)
+        quickSort(arr, l, right);
 }
 
 int main()
