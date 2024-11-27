@@ -10,12 +10,12 @@ int subsq(string input, string *output)
     }
 
     string smallString = input.substr(1);
-    int smallStrSize = subsq(smallString, output);
-    for (int i = 0; i < smallStrSize; i++)
+    int smallStringSize = subsq(smallString, output);
+    for (int i = 0; i < smallStringSize; i++)
     {
-        output[i + smallStrSize] = input[0] + output[i];
+        output[i + smallStringSize] = input[0] + output[i];
     }
-    return 2 * smallStrSize;
+    return 2 * smallStringSize;
 }
 
 int main()
