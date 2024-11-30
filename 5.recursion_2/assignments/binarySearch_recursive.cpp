@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-int bs(int *arr, int start, int end, int target)
+int bs(int *arr, int start, int end, int targetElement)
 {
     if (start > end)
     {
@@ -10,16 +10,16 @@ int bs(int *arr, int start, int end, int target)
 
     int mid = start + (end - start) / 2;
 
-    if (arr[mid] == target)
+    if (arr[mid] == targetElement)
         return mid;
 
-    else if (arr[mid] > target)
+    else if (arr[mid] > targetElement)
     {
-        return bs(arr, start, mid - 1, target);
+        return bs(arr, start, mid - 1, targetElement);
     }
     else
     {
-        return bs(arr, mid + 1, end, target);
+        return bs(arr, mid + 1, end, targetElement);
     }
 }
 
@@ -27,7 +27,7 @@ int main()
 {
     int arr[] = {2, 4, 5, 7, 9, 12, 14, 24, 35};
     int length = 9;
-    int target = 5;
+    int targetElement = 5;
 
-    cout << bs(arr, 0, length - 1, target);
+    cout << bs(arr, 0, length - 1, targetElement);
 }
