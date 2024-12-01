@@ -1,36 +1,37 @@
 #include <iostream>
 using namespace std;
 
-int generateSubsets(int nums[], int n, int index, int output[][20])
+int generateSubsets(int nums[], int length, int index, int output[][20])
 {
-    if (index == n)
+
+    if (length == index)
     {
         output[0][0] = 0;
         return 1;
     }
 
-    int subsetCount = generateSubsets(nums, n, index + 1, output);
+    int smallOutputLength = generateSubsets(nums, length, index + 1, output);
 
-    for (int i = 0; i < subsetCount; i++)
+    for (int i = 0; i < smallOutputLength; i++)
     {
-        int currentSubsetSize = output[i][0];
+        int currentSubSetLength = output[i][0];
 
-        output[i + subsetCount][0] = currentSubsetSize + 1;
-        output[i + subsetCount][1] = nums[index];
+        output[i + smallOutputLength][0] = currentSubSetLength + 1;
+        output[i + smallOutputLength][1] = nums[index];
 
-        for (int j = 1; j <= currentSubsetSize; j++)
+        for (int j = 1; j <= currentSubSetLength; j++)
         {
-            output[i + subsetCount][j + 1] = output[i][j];
+            output[i + smallOutputLength][j + 1] = output[i][j];
         }
     }
 
-    return 2 * subsetCount;
+    return 2 * smallOutputLength;
 }
 
 int main()
 {
     int nums[] = {1, 2, 3};
-    int n = sizeof(nums) / sizeof(nums[0]);
+    int n = 3;
 
     int output[1024][20];
     int subsetCount = generateSubsets(nums, n, 0, output);
