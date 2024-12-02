@@ -14,7 +14,7 @@ void printSubsets(int *arr, int length, int index, int *output, int outputIndex)
         return;
     }
 
-    printSubsets(arr, length, index + 1, output, outputIndex);
+    printSubsets(arr, length, index + 1z, output, outputIndex);
     output[outputIndex] = arr[index];
 
     printSubsets(arr, length, index + 1, output, outputIndex + 1);
