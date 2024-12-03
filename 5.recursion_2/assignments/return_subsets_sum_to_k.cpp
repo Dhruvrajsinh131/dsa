@@ -1,52 +1,52 @@
 #include <iostream>
 using namespace std;
 
-// Helper function for recursive exploration
-void findSubsetsSumToK(int input[], int n, int index, int output[], int outputSize, int currentSum, int K)
+// Function to print a subset
+void printSubset(int subset[], int subsetSize)
 {
-    // Base case: if we've processed all elements
+    for (int i = 0; i < subsetSize; i++)
+    {
+        cout << subset[i] << " ";
+    }
+    cout << endl;
+}
+
+// Recursive function to find subsets
+void findSubsets(int input[], int n, int subset[], int subsetSize, int index, int currentSum, int targetSum)
+{
+    // Base case: if we reach the end of the array
     if (index == n)
     {
-        if (currentSum == K)
-        { // If the subset sums to K, print it
-            for (int i = 0; i < outputSize; i++)
-            {
-                cout << output[i] << " ";
-            }
-            cout << endl;
+        if (currentSum == targetSum)
+        {
+            printSubset(subset, subsetSize);
         }
         return;
     }
 
-    // Exclude the current element
-    findSubsetsSumToK(input, n, index + 1, output, outputSize, currentSum, K);
+    // Include the current element in the subset
+    subset[subsetSize] = input[index];
+    findSubsets(input, n, subset, subsetSize + 1, index + 1, currentSum + input[index], targetSum);
 
-    // Include the current element
-    output[outputSize] = input[index]; // Add current element to output
-    findSubsetsSumToK(input, n, index + 1, output, outputSize + 1, currentSum + input[index], K);
+    // Exclude the current element from the subset
+    findSubsets(input, n, subset, subsetSize, index + 1, currentSum, targetSum);
 }
 
-// Wrapper function
-void subsetsSumToK(int input[], int n, int K)
-{
-    int output[n]; // Temporary array to store current subset
-    findSubsetsSumToK(input, n, 0, output, 0, 0, K);
-}
-
+// Main function
 int main()
 {
     int n;
     cin >> n;
-
     int input[n];
     for (int i = 0; i < n; i++)
     {
         cin >> input[i];
     }
+    int k;
+    cin >> k;
 
-    int K;
-    cin >> K;
+    int subset[n]; // Temporary array to store subsets
+    findSubsets(input, n, subset, 0, 0, 0, k);
 
-    subsetsSumToK(input, n, K);
     return 0;
 }
