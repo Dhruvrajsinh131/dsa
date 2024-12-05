@@ -12,10 +12,10 @@ void printSubset(int subset[], int subsetSize)
 }
 
 // Recursive function to find subsets
-void findSubsets(int input[], int n, int subset[], int subsetSize, int index, int currentSum, int targetSum)
+void findSubsets(int input[], int length,int subset[], int subsetSize, int index, int currentSum, int targetSum)
 {
     // Base case: if we reach the end of the array
-    if (index == n)
+    if (index == length)
     {
         if (currentSum == targetSum)
         {
@@ -26,10 +26,10 @@ void findSubsets(int input[], int n, int subset[], int subsetSize, int index, in
 
     // Include the current element in the subset
     subset[subsetSize] = input[index];
-    findSubsets(input, n, subset, subsetSize + 1, index + 1, currentSum + input[index], targetSum);
+    findSubsets(input, length ,subset, subsetSize + 1, index + 1, currentSum + input[index], targetSum);
 
     // Exclude the current element from the subset
-    findSubsets(input, n, subset, subsetSize, index + 1, currentSum, targetSum);
+    findSubsets(input, length,subset, subsetSize, index + 1, currentSum, targetSum);
 }
 
 // Main function
