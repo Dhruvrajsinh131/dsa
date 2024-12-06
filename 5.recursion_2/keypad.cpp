@@ -68,4 +68,6 @@ int main()
     {
         cout << op[i] << endl;
     }
+
+    delete[] op;
 }
