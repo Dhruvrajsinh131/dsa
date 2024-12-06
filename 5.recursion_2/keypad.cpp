@@ -1,45 +1,71 @@
 #include <iostream>
 using namespace std;
-
 string keypad[] = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
 
-void backtrack(string input, int index, string currentCombination)
+int getComboCount(string input)
 {
-    if (index == input.size())
+    int count = 1;
+
+    for (int i = 0; input[i] != '\0'; i++)
     {
-        cout << currentCombination << endl;
+        int digit = input[i] - '0';
+        count *= keypad[digit].size();
+    }
+
+    return count;
+}
+
+void backTrack(string input, int index, string currCombo, string *output, int &outputIndex)
+{
+    if (index == currCombo.size())
+    {
+        output[outputIndex++] = currCombo;
         return;
     }
 
     int digit = input[index] - '0';
-
     string letters = keypad[digit];
 
     for (int i = 0; i < letters.size(); i++)
     {
-        currentCombination[index] = letters[i];
-        backtrack(input, index + 1, currentCombination);
+        currCombo[index] = letters[i];
+        backTrack(input, index + 1, currCombo, output, outputIndex);
     }
 }
 
-void printCombos(string input)
+string *getCombos(string input, int &size)
 {
     if (input.empty())
     {
-        return;
+        size = 0;
+        return nullptr;
     }
 
-    string currentCombination(input.size(), ' ');
-    backtrack(input, 0, currentCombination);
+    size = getComboCount(input);
+    string *output = new string[size];
+
+    string currCombo(input.size(), ' ');
+    int outputIndex = 0;
+
+    backTrack(input, 0, currCombo, output, outputIndex);
+
+    return output;
 }
 
 int main()
 {
     string input;
-    cout << "Enter the number : ";
+
+    cout << "Enter the Number : ";
     cin >> input;
+    cout << "Answer : ";
+    int size = 0;
 
-    cout << "Answer = ";
+    string *op = getCombos(input, size);
 
-    printCombos(input);
+    cout << endl;
+    for (int i = 0; i < size; i++)
+    {
+        cout << op[i] << endl;
+    }
 }
