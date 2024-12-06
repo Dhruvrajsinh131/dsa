@@ -1,31 +1,28 @@
 #include <iostream>
 using namespace std;
 
-int staircase(int num)
+int straircase(int num)
 {
 
     if (num < 0)
     {
-
         return 0;
     }
-
     if (num == 0)
     {
-
         return 1;
     }
 
-    return staircase(num - 1) + staircase(num - 2) + staircase(num - 3);
+    return straircase(num - 1) + straircase(num - 2) + straircase(num - 3);
 }
 
 int main()
 {
-
     int num;
-
-    cout << "Enter the number of staircases : ";
+    cout << "Enter the number : ";
     cin >> num;
 
-    cout << "Numnber of possible ways = " << staircase(num);
+    int ways = straircase(num);
+
+    cout << "Answer = " << ways;
 }
