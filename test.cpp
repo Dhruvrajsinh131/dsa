@@ -1,40 +1,43 @@
+// SubSets
+
 #include <iostream>
+#include <vector>
 using namespace std;
 
-int getSubseqs(string input, string *output)
+int getSubsets(vector<int> &input, int ipSize, int index, vector<vector<int>> &output)
 {
-    if (input.empty())
+
+    if (ipSize == index)
     {
-        output[0] = "";
+        output.push_back({});
         return 1;
     }
 
-    string smallStr = input.substr(1);
-    int smallStrLength = getSubseqs(smallStr, output);
+    int smallArrayLength = getSubsets(input, ipSize, index + 1, output);
 
-    for (int i = 0; i < smallStrLength; i++)
+    for (int i = 0; i < smallArrayLength; i++)
     {
-        output[i + smallStrLength] = input[0] + output[i];
+        vector<int> newArray = output[i];
+        newArray.insert(newArray.begin(), input[index]);
+        output.push_back(newArray);
     }
-    return 2 * smallStrLength;
+    return 2 * smallArrayLength;
 }
 
-void printSubSeqs(string input, string output)
-{
-    if (input.empty())
-    {
-        cout << output << endl;
-        return;
-    }
-
-    printSubSeqs(input.substr(1), output);
-    printSubSeqs(input.substr(1), input[0] + output);
-}
 int main()
 {
-    string input;
-    cout << "Enter input string : ";
-    cin >> input;
+    vector<int> input = {2, 3};
 
-    printSubSeqs(input, "");
+    vector<vector<int>> output;
+
+    int size = getSubsets(input, input.size(), 0, output);
+
+    for (int i = 0; i < output.size(); i++)
+    {
+        for (int j = 0; j < output[i].size(); j++)
+        {
+            cout << output[i][j] << " ";
+        }
+        cout << endl;
+    }
 }

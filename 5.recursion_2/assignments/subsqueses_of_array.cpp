@@ -1,51 +1,41 @@
 #include <iostream>
+#include <vector>
 using namespace std;
 
-int generateSubsets(int nums[], int length, int index, int output[][20])
+int getSubsets(vector<int> &input, int ipsize, int index, vector<vector<int>> &output)
 {
-
-    if (length == index)
+    if (ipsize == index)
     {
-        output[0][0] = 0;
+        output.push_back({});
         return 1;
     }
 
-    int smallOutputLength = generateSubsets(nums, length, index + 1, output);
+    int smallLength = getSubsets(input, ipsize, index + 1, output);
 
-    for (int i = 0; i < smallOutputLength; i++)
+    for (int i = 0; i < smallLength; i++)
     {
-        int currentSubSetLength = output[i][0];
-
-        output[i + smallOutputLength][0] = currentSubSetLength + 1;
-        output[i + smallOutputLength][1] = nums[index];
-
-        for (int j = 1; j <= currentSubSetLength; j++)
-        {
-            output[i + smallOutputLength][j + 1] = output[i][j];
-        }
+        vector<int> newSubset = output[i];
+        newSubset.insert(newSubset.begin(), input[index]);
+        output.push_back(newSubset);
     }
 
-    return 2 * smallOutputLength;
+    return 2 * smallLength;
 }
 
 int main()
 {
-    int nums[] = {1, 2, 3};
-    int n = 3;
+    vector<int> input = {1, 2, 3};
+    vector<vector<int>> output;
 
-    int output[1024][20];
-    int subsetCount = generateSubsets(nums, n, 0, output);
+    int size = getSubsets(input, input.size(), 0, output);
 
-    cout << "Subsets are:" << endl;
-    for (int i = 0; i < subsetCount; i++)
+    for (int i = 0; i < output.size(); i++)
     {
-
-        for (int j = 1; j <= output[i][0]; j++)
+        for (int j = 0; j < output[i].size(); j++)
         {
             cout << output[i][j] << " ";
         }
+
         cout << endl;
     }
-
-    return 0;
 }
