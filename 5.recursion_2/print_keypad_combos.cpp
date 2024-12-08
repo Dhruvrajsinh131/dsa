@@ -13,7 +13,7 @@ void printCombos(int input, string output)
     int digit = input % 10;
     string letters = keypad[digit];
 
-    for (size_t i = 0; i < letters.size(); i++)
+    for (int i = 0; i < letters.size(); i++)
     {
         printCombos(input / 10, letters[i] + output);
     }

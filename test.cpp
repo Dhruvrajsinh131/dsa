@@ -1,36 +1,41 @@
-// SubSets
-
 #include <iostream>
 #include <vector>
 using namespace std;
 
-int getSubsets(vector<int> &input, int ipSize, int index, vector<vector<int>> &output)
+void backtrack(int index, vector<int> &nums, vector<int> &currSubset, vector<vector<int>> &output, int sum, int k)
 {
 
-    if (ipSize == index)
+    if (index == nums.size())
     {
-        output.push_back({});
-        return 1;
-    }
+        if (sum == k)
+        {
 
-    int smallArrayLength = getSubsets(input, ipSize, index + 1, output);
-
-    for (int i = 0; i < smallArrayLength; i++)
-    {
-        vector<int> newArray = output[i];
-        newArray.insert(newArray.begin(), input[index]);
-        output.push_back(newArray);
+            output.push_back(currSubset);
+        }
+        return;
     }
-    return 2 * smallArrayLength;
+    backtrack(index + 1, nums, currSubset, output, sum, k);
+
+    currSubset.push_back(nums[index]);
+    backtrack(index + 1, nums, currSubset, output, sum + nums[index], k);
+    currSubset.pop_back();
+}
+
+vector<vector<int>> getSubsets(vector<int> &nums)
+{
+    vector<vector<int>> output;
+    vector<int> currSubset;
+    int sum = 0;
+    int k = 4;
+
+    backtrack(0, nums, currSubset, output, sum, k);
+    return output;
 }
 
 int main()
 {
-    vector<int> input = {2, 3};
-
-    vector<vector<int>> output;
-
-    int size = getSubsets(input, input.size(), 0, output);
+    vector<int> nums = {1, 2, 3};
+    vector<vector<int>> output = getSubsets(nums);
 
     for (int i = 0; i < output.size(); i++)
     {

@@ -1,52 +1,48 @@
 #include <iostream>
+#include <vector>
 using namespace std;
 
-// Function to print a subset
-void printSubset(int subset[], int subsetSize)
+void backtrack(int index, vector<int> &nums, vector<int> &currSubset, vector<vector<int>> &output, int sum, int k)
 {
-    for (int i = 0; i < subsetSize; i++)
-    {
-        cout << subset[i] << " ";
-    }
-    cout << endl;
-}
 
-// Recursive function to find subsets
-void findSubsets(int input[], int length,int subset[], int subsetSize, int index, int currentSum, int targetSum)
-{
-    // Base case: if we reach the end of the array
-    if (index == length)
+    if (index == nums.size())
     {
-        if (currentSum == targetSum)
+        if (sum == k)
         {
-            printSubset(subset, subsetSize);
+
+            output.push_back(currSubset);
         }
         return;
     }
+    currSubset.push_back(nums[index]);
+    backtrack(index + 1, nums, currSubset, output, sum, k);
 
-    // Include the current element in the subset
-    subset[subsetSize] = input[index];
-    findSubsets(input, length ,subset, subsetSize + 1, index + 1, currentSum + input[index], targetSum);
-
-    // Exclude the current element from the subset
-    findSubsets(input, length,subset, subsetSize, index + 1, currentSum, targetSum);
+    currSubset.pop_back();
+    backtrack(index + 1, nums, currSubset, output, sum + nums[index], k);
 }
 
-// Main function
+vector<vector<int>> getSubsets(vector<int> &nums)
+{
+    vector<vector<int>> output;
+    vector<int> currSubset;
+    int sum = 0;
+    int k = 5;
+
+    backtrack(0, nums, currSubset, output, sum, k);
+    return output;
+}
+
 int main()
 {
-    int n;
-    cin >> n;
-    int input[n];
-    for (int i = 0; i < n; i++)
+    vector<int> nums = {1, 2, 3};
+    vector<vector<int>> output = getSubsets(nums);
+
+    for (int i = 0; i < output.size(); i++)
     {
-        cin >> input[i];
+        for (int j = 0; j < output[i].size(); j++)
+        {
+            cout << output[i][j] << " ";
+        }
+        cout << endl;
     }
-    int k;
-    cin >> k;
-
-    int subset[n]; // Temporary array to store subsets
-    findSubsets(input, n, subset, 0, 0, 0, k);
-
-    return 0;
 }
