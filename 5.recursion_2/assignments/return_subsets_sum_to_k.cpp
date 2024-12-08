@@ -14,11 +14,11 @@ void backtrack(int index, vector<int> &nums, vector<int> &currSubset, vector<vec
         }
         return;
     }
-    currSubset.push_back(nums[index]);
     backtrack(index + 1, nums, currSubset, output, sum, k);
 
-    currSubset.pop_back();
+    currSubset.push_back(nums[index]);
     backtrack(index + 1, nums, currSubset, output, sum + nums[index], k);
+    currSubset.pop_back();
 }
 
 vector<vector<int>> getSubsets(vector<int> &nums)
@@ -26,7 +26,7 @@ vector<vector<int>> getSubsets(vector<int> &nums)
     vector<vector<int>> output;
     vector<int> currSubset;
     int sum = 0;
-    int k = 5;
+    int k = 4;
 
     backtrack(0, nums, currSubset, output, sum, k);
     return output;
