@@ -68,12 +68,30 @@ void mergeSort(int *arr, int start, int end)
 int main()
 {
     int arr1[] = {12, 4, 5, 4, 6};
-    int length = 4;
+    int length1 = 5;
+    int arr2[] = {12, 4, 5, 2, 6, 1};
+    int length2 = 6;
 
-    mergeSort(arr1, 0, length - 1);
+    mergeSort(arr1, 0, length1 - 1);
+    mergeSort(arr2, 0, length2 - 1);
 
-    for (int i = 0; i < length; i++)
+    int i = 0, j = 0;
+
+    while (i < length1 && j < length2)
     {
-        cout << arr1[i] << " ";
+        if (arr1[i] < arr2[j])
+        {
+            i++;
+        }
+        else if (arr1[i] > arr2[j])
+        {
+            j++;
+        }
+        else
+        {
+            cout << arr1[i] << " ";
+            i++;
+            j++;
+        }
     }
 }
