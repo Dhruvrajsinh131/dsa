@@ -1,12 +1,13 @@
 #include <iostream>
+#include <vector>
 using namespace std;
 
-void merge(int *arr, int start, int mid, int end)
+void merge(vector<int> &arr, int start, int mid, int end)
 {
     int n1 = mid + 1 - start;
     int n2 = end - mid;
 
-    int leftArr[n1], rightArr[n2];
+    vector<int> leftArr(n1), rightArr(n2);
     for (int i = 0; i < n1; i++)
     {
         leftArr[i] = arr[start + i];
@@ -37,20 +38,18 @@ void merge(int *arr, int start, int mid, int end)
     while (i < n1)
     {
         arr[k] = leftArr[i];
-
         k++;
         i++;
     }
     while (j < n2)
     {
         arr[k] = rightArr[j];
-
         k++;
         j++;
     }
 }
 
-void mergeSort(int *arr, int start, int end)
+void mergeSort(vector<int> &arr, int start, int end)
 {
     if (start >= end)
     {
@@ -67,17 +66,15 @@ void mergeSort(int *arr, int start, int end)
 
 int main()
 {
-    int arr1[] = {12, 4, 5, 4, 6};
-    int length1 = 5;
-    int arr2[] = {12, 4, 5, 2, 6, 1};
-    int length2 = 6;
+    vector<int> arr1 = {12, 4, 5, 4, 6};
+    vector<int> arr2 = {12, 4, 5, 2, 6, 1};
 
-    mergeSort(arr1, 0, length1 - 1);
-    mergeSort(arr2, 0, length2 - 1);
+    mergeSort(arr1, 0, arr1.size() - 1);
+    mergeSort(arr2, 0, arr2.size() - 1);
 
     int i = 0, j = 0;
 
-    while (i < length1 && j < length2)
+    while (i < arr1.size() && j < arr2.size())
     {
         if (arr1[i] < arr2[j])
         {
