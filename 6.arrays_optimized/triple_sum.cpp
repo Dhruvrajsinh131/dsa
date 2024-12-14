@@ -45,7 +45,7 @@ int main()
     vector<int> arr = {2, -5, 8, -6, 0, 5, 10, 11, -3};
     int target = 10;
 
-    cout << countTriplets(arr, arr.size() - 1, target) << endl;
+    cout << countTriplets(arr, arr.size(), target) << endl;
 
     return 0;
 }
