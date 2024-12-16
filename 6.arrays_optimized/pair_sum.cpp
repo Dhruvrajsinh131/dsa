@@ -4,25 +4,20 @@
 
 using namespace std;
 
-// Function to count the number of pairs that sum to the target
 int countPairSums(const vector<int> &nums, int target)
 {
-    unordered_map<int, int> freq_map; // Map to store frequency of each number
+    unordered_map<int, int> freq_map;
     int count = 0;
 
-    // Iterate through the array
     for (int num : nums)
     {
         int complement = target - num;
-
-        // If the complement exists in the map, it contributes to the pair count
 
         if (freq_map.find(complement) != freq_map.end())
         {
             count += freq_map[complement];
         }
 
-        // Update the frequency of the current number
         ++freq_map[num];
     }
 
