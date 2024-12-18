@@ -1,9 +1,6 @@
-#include <iostream>
-using namespace std;
-
 class Student
 {
-    string name;
-    int std;
-    int age;
+public:
+    char name[100];
+    int rollNo;
 };
