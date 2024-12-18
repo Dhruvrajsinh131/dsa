@@ -1,48 +1,25 @@
 #include <iostream>
-#include <vector>
 using namespace std;
 
-void backtrack(int index, vector<int> &nums, vector<int> &currSubset, vector<vector<int>> &output, int sum, int k)
+class Node
 {
+public:
+    int data;
+    Node *next;
 
-    if (index == nums.size())
+    Node(int data)
     {
-        if (sum == k)
-        {
-
-            output.push_back(currSubset);
-        }
-        return;
+        this->data = data;
+        next = NULL;
     }
-    backtrack(index + 1, nums, currSubset, output, sum, k);
-
-    currSubset.push_back(nums[index]);
-    backtrack(index + 1, nums, currSubset, output, sum + nums[index], k);
-    currSubset.pop_back();
-}
-
-vector<vector<int>> getSubsets(vector<int> &nums)
-{
-    vector<vector<int>> output;
-    vector<int> currSubset;
-    int sum = 0;
-    int k = 4;
-
-    backtrack(0, nums, currSubset, output, sum, k);
-    return output;
-}
+};
 
 int main()
 {
-    vector<int> nums = {1, 2, 3};
-    vector<vector<int>> output = getSubsets(nums);
+    Node n1(1);
+    Node n2(2);
+    n1.next = &n2;
 
-    for (int i = 0; i < output.size(); i++)
-    {
-        for (int j = 0; j < output[i].size(); j++)
-        {
-            cout << output[i][j] << " ";
-        }
-        cout << endl;
-    }
+    cout << n1.data;
+    cout << n2.data;
 }
