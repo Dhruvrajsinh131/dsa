@@ -10,21 +10,21 @@ int main()
     Student s3;
 
     cin >> s1.name;
-    s1.rollNo = 21;
+    s1.setRollNo(21);
 
     cout << s1.name << endl;
-    cout << s1.rollNo << endl;
+    cout << s1.getRollNo() << endl;
 
     // Create Objects Dynamically
 
     Student *s11 = new Student;
 
     cin >> s11->name;
-    s11->rollNo = 13;
+    s11->setRollNo(13);
 
-    Student *s22 = new Student;
-    Student *s33 = new Student;
+    Student *s22 = new Student();
+    Student *s33 = new Student();
 
     cout << s11->name << endl;
-    cout << s11->rollNo << endl;
+    cout << s11->getRollNo() << endl;
 }
