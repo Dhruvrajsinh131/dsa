@@ -10,22 +10,28 @@ private:
     int age;
 
 public:
-    // Student()
-    // {
-    //     cout << "Constructor called" << endl;
-    // }
+    ~Student()
+    {
+        cout << "Destructor Called" << endl;
+    }
+    Student()
+    {
+        cout << "Constructor  1 called" << endl;
+    }
 
     Student(int rollNumber)
     {
         this->rollNumber = rollNumber;
+        cout << "Constructor  2 called" << endl;
     }
-
     Student(int r, int a)
     {
         rollNumber = r;
         age = a;
+        cout << "Constructor  3 called" << endl;
         cout << "this = " << this << endl;
     }
+
     void display()
     {
         cout << rollNumber << " " << age << endl;
@@ -57,13 +63,25 @@ int main()
 
     // cout << "s2 rollNO = " << s2->rollNumber << endl;
 
-    Student *s1 = new Student(10, 21);
+    // Student *s1 = new Student(10, 21);
 
-    s1->display();
-    Student *s2 = new Student(11, 23);
-    s2->display();
+    // s1->display();
+    // Student *s2 = new Student(11, 23);
+    // s2->display();
 
-    s2 = s1;
+    // *s2 = *s1;
 
-    s2->display();
+    // s2->display();
+
+    // delete s1;
+    // delete s2;
+
+    Student s1;
+    Student s2(10);
+    Student s3(10, 21);
+    Student s4(s1);
+
+    // s1 = s2;
+
+    Student s5 = s4; // Copy constructor
 }
