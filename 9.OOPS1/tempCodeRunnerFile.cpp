@@ -1,2 +1,2 @@
- delete s1;
-    delete s2;
+c2);
+    // c1->print();

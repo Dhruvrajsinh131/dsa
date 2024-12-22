@@ -34,7 +34,7 @@ public:
         this->denominator = this->denominator / gcd;
     }
 
-    void add(Fraction f2)
+    void add(const Fraction &f2)
     {
 
         int lcm = this->denominator * f2.denominator;
@@ -42,6 +42,15 @@ public:
 
         this->denominator = lcm;
         this->numarator = upperValue;
+        simplify();
+    }
+
+    void multiply(const Fraction &f2)
+    {
+
+        this->numarator = this->denominator * f2.denominator;
+        this->denominator = this->numarator * f2.numarator;
+
         simplify();
     }
 };
@@ -53,6 +62,10 @@ int main()
 
     Fraction *f2 = new Fraction(10, 3);
     f1->add(*f2);
+
+    f1->print();
+
+    f1->multiply(*f2);
 
     f1->print();
 
