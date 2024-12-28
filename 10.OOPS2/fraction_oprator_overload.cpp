@@ -78,43 +78,75 @@ public:
 
         return *this;
     }
+
+    // Post-Increment
+    Fraction operator++(int)
+    {
+        Fraction temp(this->numarator, this->denominator);
+
+        temp.simplify();
+        this->numarator = this->numarator + this->denominator;
+        simplify();
+
+        return temp;
+    }
+
+    Fraction &operator+=(Fraction f)
+    {
+        int lowerPart = this->denominator * f.denominator;
+        int upperPart = (this->numarator * f.denominator) + (f.numarator * this->denominator);
+        this->numarator = upperPart;
+        this->denominator = lowerPart;
+        simplify();
+        return *this;
+    }
 };
 
 int main()
 {
 
-    Fraction f1(10, 2);
+    // Fraction f1(10, 2);
 
-    Fraction f2(10, 1);
+    // Fraction f2(10, 1);
 
-    Fraction f3 = f1 + (f2);
-    Fraction f4 = f1 + (f2);
+    // Fraction f3 = f1 + (f2);
+    // Fraction f4 = f1 + (f2);
 
-    f1.print();
-    f2.print();
-    f3.print();
-    f4.print();
+    // f1.print();
+    // f2.print();
+    // f3.print();
+    // f4.print();
 
-    Fraction f5 = f1 * f2;
+    // Fraction f5 = f1 * f2;
 
-    f5.print();
+    // f5.print();
 
-    if (f1 == f2)
-    {
-        cout << "Equal" << endl;
-    }
-    else
-    {
+    // if (f1 == f2)
+    // {
+    //     cout << "Equal" << endl;
+    // }
+    // else
+    // {
 
-        cout << "Not Equal" << endl;
-    }
+    //     cout << "Not Equal" << endl;
+    // }
 
-    Fraction *f6 = new Fraction(10, 2);
-    Fraction *f7 = new Fraction(++(++(++(*f6))));
+    // Fraction *f6 = new Fraction(10, 2);
+    // Fraction *f7 = new Fraction(++(++(++(*f6))));
 
-    f6->print();
-    f7->print();
+    // f6->print();
+    // f7->print();
+    // ((*f6)++)++;
+    // f6->print();
 
-    delete f6;
-    delete f7;
+    // delete f6;
+    // delete f7;
+
+    Fraction *f8 = new Fraction(10, 2);
+
+    f8->print();
+    Fraction *f9 = new Fraction(10, 2);
+
+    (*f8 += *f9) += *f9;
+    f8->print();
 }
