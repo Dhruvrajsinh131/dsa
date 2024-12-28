@@ -1,1 +1,1 @@
-getNominator
+*f6

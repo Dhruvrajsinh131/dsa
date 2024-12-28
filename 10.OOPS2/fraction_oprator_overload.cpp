@@ -68,6 +68,16 @@ public:
         f2.simplify();
         return this->numarator == f2.numarator && this->denominator == f2.denominator;
     }
+
+    // Pre-Increment
+
+    Fraction &operator++()
+    {
+        this->numarator = this->numarator + this->denominator;
+        simplify();
+
+        return *this;
+    }
 };
 
 int main()
@@ -91,11 +101,20 @@ int main()
 
     if (f1 == f2)
     {
-        cout << "Equal";
+        cout << "Equal" << endl;
     }
     else
     {
 
-        cout << "Not Equal";
+        cout << "Not Equal" << endl;
     }
+
+    Fraction *f6 = new Fraction(10, 2);
+    Fraction *f7 = new Fraction(++(++(++(*f6))));
+
+    f6->print();
+    f7->print();
+
+    delete f6;
+    delete f7;
 }
