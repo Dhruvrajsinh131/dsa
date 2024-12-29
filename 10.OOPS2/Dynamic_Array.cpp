@@ -1,52 +1,45 @@
 #include <iostream>
 using namespace std;
 
-class DyncmicArray
+class DynamicArray
 {
-
     int *data;
-
     int nextIndex;
     int size;
 
 public:
-    DyncmicArray()
+    DynamicArray()
     {
-        data = new int[5];
+        data = new int[1];
         nextIndex = 0;
-        size = 5;
+        size = 0;
     }
 
-    DyncmicArray(DyncmicArray const &d)
+    DynamicArray(DynamicArray const &d)
     {
-        // this->data = d.data; Shallow Copy
-
-        // Deepcopy
-        this->data = new int[d.size];
-
+        data = new int[d.size];
         for (int i = 0; i < d.nextIndex; i++)
         {
-            this->data[i] = d.data[i];
+            data[i] = d.data[i];
         }
 
-        this->nextIndex = d.nextIndex;
-        this->size = d.size;
+        nextIndex = d.nextIndex;
+        size = d.size;
     }
 
     void add(int element)
     {
         if (nextIndex == size)
         {
-
-            int *newArr = new int[2 * size];
+            int *newData = new int[2 * size];
 
             for (int i = 0; i < size; i++)
             {
-                newArr[i] = data[i];
+                newData[i] = data[i];
             }
 
             delete[] data;
-            data = newArr;
+            data = newData;
             size *= 2;
         }
 
@@ -54,29 +47,13 @@ public:
         nextIndex++;
     }
 
-    int get(int i)
+    void add(int index, int element)
     {
-
-        if (i < nextIndex)
+        if (index < nextIndex)
         {
-
-            return data[i];
+            data[index] = element;
         }
-        else
-        {
-            return -1;
-        }
-    }
-
-    void add(int i, int element)
-    {
-
-        if (i < nextIndex)
-        {
-
-            data[i] = element;
-        }
-        else if (i == nextIndex)
+        else if (index < nextIndex)
         {
             add(element);
         }
@@ -86,53 +63,67 @@ public:
         }
     }
 
+    void operator=(DynamicArray const &d)
+    {
+        data = new int[d.size];
+        for (int i = 0; i < d.nextIndex; i++)
+        {
+            data[i] = d.data[i];
+        }
+
+        nextIndex = d.nextIndex;
+        size = d.size;
+    }
+
+    int getElement(int i) const
+    {
+        return (i >= 0 && i < nextIndex) ? data[i] : -1;
+    }
+
     void print()
     {
         for (int i = 0; i < nextIndex; i++)
         {
             cout << data[i] << " ";
         }
+
         cout << endl;
     }
-
-    void operator=(DyncmicArray const &d)
+    ~DynamicArray()
     {
-        this->data = new int[d.size];
-
-        for (int i = 0; i < d.nextIndex; i++)
-        {
-            this->data[i] = d.data[i];
-        }
-
-        this->nextIndex = d.nextIndex;
-        this->size = d.size;
+        delete[] data;
     }
 };
 
 int main()
 {
+    DynamicArray *arr1 = new DynamicArray();
 
-    DyncmicArray d1;
+    arr1->add(2);
+    arr1->add(3);
+    arr1->add(4);
+    arr1->add(5);
+    arr1->add(6);
 
-    d1.add(10);
-    d1.add(20);
-    d1.add(30);
-    d1.add(40);
-    d1.add(50);
-    d1.add(60);
+    arr1->print();
 
-    d1.print();
+    // DynamicArray *arr2 = new DynamicArray(*arr1);
 
-    DyncmicArray d2(d1);
+    // arr1->add(1, 69);
 
-    // d1.add(1, 100);
-    d2.print();
-    DyncmicArray d3;
+    // arr1->print();
+    // arr2->print();
 
-    d3 = d1;
+    DynamicArray *arr3 = new DynamicArray();
 
-    d1.add(1, 100);
-    d3.print();
+    *arr3 = *arr1;
 
-    d1.print();
+    arr1->add(2, 69);
+
+    arr1->print();
+    arr3->print();
+
+    delete arr1;
+    // delete arr2;
+    delete arr3;
 }
