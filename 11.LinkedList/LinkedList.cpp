@@ -2,39 +2,34 @@
 using namespace std;
 #include "Node.cpp"
 
-Node *takeInput()
+Node *take_input()
 {
     int data;
 
-    // Taking First Input
-    cin >> data;
-
-    // Initialize head as nullptr
     Node *head = nullptr;
+    Node *tail = nullptr;
+    cin >> data;
 
     while (data != -1)
     {
         Node *newNode = new Node(data);
+
         if (head == nullptr)
         {
             head = newNode;
+            tail = newNode;
         }
         else
         {
-            Node *temp = head;
-            while (temp->next != nullptr)
-            {
-                temp = temp->next;
-            }
-            temp->next = newNode;
+            tail->next = newNode;
+            tail = newNode;
         }
         cin >> data;
     }
-
     return head;
 }
 
-void print(Node *head)
+void print_LL(Node *head)
 {
     Node *temp = head;
 
@@ -50,6 +45,6 @@ void print(Node *head)
 int main()
 {
 
-    Node *head = takeInput();
-    print(head);
+    Node *head = take_input();
+    print_LL(head);
 }

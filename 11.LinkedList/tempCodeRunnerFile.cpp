@@ -1,1 +1,2 @@
-n
+
+    Node *head = take_input();
