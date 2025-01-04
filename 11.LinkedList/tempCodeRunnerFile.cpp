@@ -1,2 +1,2 @@
 
-    Node *head = take_input();
+Node *head = take_input();
