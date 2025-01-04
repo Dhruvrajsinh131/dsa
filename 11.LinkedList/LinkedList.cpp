@@ -99,14 +99,12 @@ Node *insertAtIthIndex(Node *head, int i, int data)
         count++;
     }
 
-    if (temp == nullptr)
+    if (temp != nullptr)
     {
-        cout << "Index out of bounds!" << endl;
-        return head;
-    }
 
-    newNode->next = temp->next;
-    temp->next = newNode;
+        newNode->next = temp->next;
+        temp->next = newNode;
+    }
 
     return head;
 }
@@ -119,8 +117,8 @@ int main()
     print_LL(head);
 
     cout << "length = " << get_LL_length(head) << endl;
-    cout << "Element At index 1 = " << printIthelemet(2, head) << endl;
+    cout << "Element At index 1 = " << printIthelemet(1, head) << endl;
 
-    insertAtIthIndex(head, 2, 69);
+    head = insertAtIthIndex(head, 0, 69);
     print_LL(head);
 }
