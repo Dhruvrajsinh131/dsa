@@ -47,6 +47,19 @@ int get_LL_length(Node *head)
     return length;
 }
 
+int get_LL_length_rec(Node *head, int length = 0)
+{
+    if (head == nullptr)
+    {
+        return length;
+    }
+
+    head = head->next;
+    length++;
+
+    return get_LL_length_rec(head, length);
+}
+
 int printIthelemet(int index, Node *head)
 {
     int length = 0;
@@ -109,6 +122,50 @@ Node *insertAtIthIndex(Node *head, int i, int data)
     return head;
 }
 
+Node *deleteNodeAtIthIndex(Node *head, int index)
+{
+
+    if (head == nullptr)
+    {
+        cout << "List is empty. cannot delete ." << endl;
+        return head;
+    }
+
+    if (index == 0)
+    {
+        Node *toDelete = head;
+
+        head = head->next;
+
+        delete toDelete;
+
+        return head;
+    }
+
+    int count = 0;
+    Node *temp = head;
+
+    while (temp != nullptr && count < index - 1)
+    {
+        temp = temp - 1;
+        count++;
+    }
+
+    if (temp == nullptr && temp->next == nullptr)
+    {
+
+        cout << "Index out of bounds for deletation" << endl;
+        return head;
+    }
+
+    Node *toDate = temp->next;
+    temp->next = toDate->next;
+
+    delete toDate;
+
+    return head;
+}
+
 int main()
 {
 
@@ -117,8 +174,10 @@ int main()
     print_LL(head);
 
     cout << "length = " << get_LL_length(head) << endl;
+    cout << "length (rec)= " << get_LL_length_rec(head) << endl;
     cout << "Element At index 1 = " << printIthelemet(1, head) << endl;
 
-    head = insertAtIthIndex(head, 0, 69);
+    // head = insertAtIthIndex(head, 0, 69);
+    head = deleteNodeAtIthIndex(head, 9);
     print_LL(head);
 }
