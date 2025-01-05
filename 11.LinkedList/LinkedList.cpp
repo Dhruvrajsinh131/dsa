@@ -166,6 +166,48 @@ Node *deleteNodeAtIthIndex(Node *head, int index)
     return head;
 }
 
+Node *insertAtIthIndex_recursive(Node *head, int i, int data)
+{
+
+    if (i == 0)
+    {
+        Node *newNode = new Node(data);
+        newNode->next = head;
+        return newNode;
+    }
+
+    if (head == nullptr)
+    {
+        cout << "Index out of bounds" << endl;
+        return head;
+    }
+
+    head->next = insertAtIthIndex_recursive(head->next, i - 1, data);
+    return head;
+}
+
+Node *deleteIthIndexRecursively(Node *head, int i)
+{
+    if (head == nullptr)
+    {
+
+        cout << "Index out of bounds" << endl;
+        head;
+    }
+    if (i == 0)
+    {
+
+        Node *temp = head;
+        head = head->next;
+        delete temp;
+        return head;
+    }
+
+    head->next = deleteIthIndexRecursively(head->next, i - 1);
+
+    return head;
+}
+
 int main()
 {
 
@@ -178,6 +220,10 @@ int main()
     cout << "Element At index 1 = " << printIthelemet(1, head) << endl;
 
     // head = insertAtIthIndex(head, 0, 69);
-    head = deleteNodeAtIthIndex(head, 9);
+    // head = deleteNodeAtIthIndex(head, 9);
+    insertAtIthIndex_recursive(head, 3, 69);
+    print_LL(head);
+
+    deleteIthIndexRecursively(head, 3);
     print_LL(head);
 }
