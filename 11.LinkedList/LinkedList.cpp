@@ -207,6 +207,26 @@ Node *deleteIthIndexRecursively(Node *head, int i)
 
     return head;
 }
+int findElement(Node *head, int target)
+{
+
+    Node *temp = head;
+
+    int index = 0;
+    while (temp != nullptr)
+    {
+        if (temp->data == target)
+        {
+            return index;
+        }
+        temp = temp->next;
+        index++;
+    }
+
+    index = -1;
+
+    return index;
+}
 
 int main()
 {
@@ -224,6 +244,8 @@ int main()
     insertAtIthIndex_recursive(head, 3, 69);
     print_LL(head);
 
-    deleteIthIndexRecursively(head, 3);
-    print_LL(head);
+    // deleteIthIndexRecursively(head, 2);
+    // print_LL(head);
+
+    cout << findElement(head, 69) << endl;
 }
