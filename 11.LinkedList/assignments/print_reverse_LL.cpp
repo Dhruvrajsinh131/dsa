@@ -46,9 +46,8 @@ void print_LL(Node *head)
 
 void rev_print_LL(Node *head)
 {
-    if (head->next == nullptr)
+    if (head == nullptr)
     {
-        cout << head->data << " ";
         return;
     }
     rev_print_LL(head->next);
