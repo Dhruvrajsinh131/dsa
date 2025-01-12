@@ -1,34 +1,52 @@
 #include <iostream>
 using namespace std;
+#include "Node.cpp"
 
-struct Node
+Node *takeInput()
 {
     int data;
-    Node *next;
+    Node *head = nullptr;
+    Node *tail = nullptr;
 
-    Node(int val) : data(val), next(nullptr) {}
-};
+    cin >> data;
 
-void insertNode(Node *&head, int data)
-{
-    Node *newNode = new Node(data);
-    if (!head)
+    while (data != -1)
     {
-        head = newNode;
-        return;
+        Node *newNode = new Node(data);
+
+        if (head == nullptr)
+        {
+            head = newNode;
+            tail = newNode;
+        }
+        else
+        {
+            tail->next = newNode;
+            tail = newNode;
+        }
+        cin >> data;
     }
-    Node *temp = head;
-    while (temp->next)
-    {
-        temp = temp->next;
-    }
-    temp->next = newNode;
+
+    return head;
 }
 
-Node *reverseList(Node *head)
+void print_LL(Node *head)
+{
+    Node *temp = head;
+
+    while (temp != nullptr)
+    {
+        cout << temp->data << " ";
+        temp = temp->next;
+    }
+
+    cout << endl;
+}
+Node *reverse_LL(Node *head)
 {
     Node *prev = nullptr;
     Node *current = head;
+
     while (current)
     {
         Node *nextNode = current->next;
@@ -36,6 +54,7 @@ Node *reverseList(Node *head)
         prev = current;
         current = nextNode;
     }
+
     return prev;
 }
 
@@ -48,15 +67,17 @@ bool isPalindrome(Node *head)
 
     Node *slow = head;
     Node *fast = head;
+
     while (fast && fast->next)
     {
         slow = slow->next;
         fast = fast->next->next;
     }
 
-    Node *secondHalf = reverseList(slow);
+    Node *secondHalf = reverse_LL(slow);
 
     Node *firstHalf = head;
+
     Node *temp = secondHalf;
     bool isPalin = true;
     while (temp)
@@ -66,46 +87,25 @@ bool isPalindrome(Node *head)
             isPalin = false;
             break;
         }
-        firstHalf = firstHalf->next;
+
         temp = temp->next;
+        firstHalf = firstHalf->next;
     }
 
-    reverseList(secondHalf);
+    reverse_LL(secondHalf);
 
     return isPalin;
 }
 
-void printList(Node *head)
-{
-    while (head)
-    {
-        cout << head->data << " ";
-        head = head->next;
-    }
-    cout << endl;
-}
-
 int main()
 {
-    Node *head = nullptr;
 
-    insertNode(head, 1);
-    insertNode(head, 2);
-    insertNode(head, 3);
-    insertNode(head, 2);
-    insertNode(head, 1);
+    Node *head = takeInput();
+    print_LL(head);
 
-    cout << "Original List: ";
-    printList(head);
+    // head = reverse_LL(head);
 
-    if (isPalindrome(head))
-    {
-        cout << "The linked list is a palindrome." << endl;
-    }
-    else
-    {
-        cout << "The linked list is not a palindrome." << endl;
-    }
+    cout << "Is palindrome : " << isPalindrome(head) << endl;
 
-    return 0;
+    // print_LL(head);
 }
