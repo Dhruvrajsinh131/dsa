@@ -4,6 +4,7 @@ using namespace std;
 
 Node *takeInput()
 {
+
     int data;
     Node *head = nullptr;
     Node *tail = nullptr;
@@ -22,8 +23,9 @@ Node *takeInput()
         else
         {
             tail->next = newNode;
-            tail = newNode;
+            tail = tail->next;
         }
+
         cin >> data;
     }
 
@@ -42,8 +44,10 @@ void print_LL(Node *head)
 
     cout << endl;
 }
+
 Node *reverse_LL(Node *head)
 {
+
     Node *prev = nullptr;
     Node *current = head;
 
@@ -75,19 +79,19 @@ bool isPalindrome(Node *head)
     }
 
     Node *secondHalf = reverse_LL(slow);
-
     Node *firstHalf = head;
 
     Node *temp = secondHalf;
+
     bool isPalin = true;
     while (temp)
     {
+
         if (firstHalf->data != temp->data)
         {
             isPalin = false;
             break;
         }
-
         temp = temp->next;
         firstHalf = firstHalf->next;
     }
@@ -101,11 +105,10 @@ int main()
 {
 
     Node *head = takeInput();
-    print_LL(head);
-
+    // print_LL(head);
     // head = reverse_LL(head);
 
-    cout << "Is palindrome : " << isPalindrome(head) << endl;
-
-    // print_LL(head);
+    print_LL(head);
+    cout << "Is palin = " << isPalindrome(head) << endl;
+    print_LL(head);
 }
