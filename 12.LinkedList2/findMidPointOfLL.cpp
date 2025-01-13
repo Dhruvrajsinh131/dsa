@@ -49,7 +49,7 @@ int getMidPoint(Node *head)
     Node *slow = head;
     Node *fast = head;
 
-    while (fast && fast->next)
+    while (fast && fast->next && fast->next->next)
     {
         slow = slow->next;
         fast = fast->next->next;
