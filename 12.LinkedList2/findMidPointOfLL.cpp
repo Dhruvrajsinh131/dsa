@@ -46,9 +46,15 @@ void print_LL(Node *head)
 
 int getMidPoint(Node *head)
 {
+    if (!head)
+    {
+        return -1;
+    }
+
     Node *slow = head;
     Node *fast = head;
 
+    // Run loop until fast becomes null
     while (fast && fast->next && fast->next->next)
     {
         slow = slow->next;
