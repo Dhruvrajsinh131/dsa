@@ -4,9 +4,7 @@ using namespace std;
 
 Node *takeInput()
 {
-
     int data;
-
     Node *head = nullptr;
     Node *tail = nullptr;
 
@@ -15,7 +13,6 @@ Node *takeInput()
     while (data != -1)
     {
         Node *newNode = new Node(data);
-
         if (head == nullptr)
         {
             head = newNode;
@@ -23,7 +20,6 @@ Node *takeInput()
         }
         else
         {
-
             tail->next = newNode;
             tail = tail->next;
         }
@@ -35,6 +31,7 @@ Node *takeInput()
 
 void print_LL(Node *head)
 {
+
     Node *temp = head;
 
     while (temp != nullptr)
@@ -47,9 +44,9 @@ void print_LL(Node *head)
     cout << endl;
 }
 
-Node *findMiddle(Node *head)
+Node *findMidPoint(Node *head)
 {
-    if (head == nullptr)
+    if (head == nullptr || head->next == nullptr)
         return head;
 
     Node *slow = head;
@@ -58,58 +55,89 @@ Node *findMiddle(Node *head)
     while (fast && fast->next)
     {
         slow = slow->next;
-        fast = fast->next;
+        fast = fast->next->next;
     }
 
     return slow;
 }
 
-Node *mergeTwoLists(Node *head1, Node *head2)
+Node *mergeList(Node *l1, Node *l2)
 {
-    if (head1 == nullptr)
-        return head2;
-    if (head2 == nullptr)
-        return head1;
+    if (!l1)
+        return l2;
+    if (!l2)
+        return l1;
 
-    Node *mergedHead = nullptr;
+    Node *tempHead = nullptr;
+    Node *tempTail = nullptr;
 
-    if (head1->data < head2->data)
+    Node *temp1 = l1;
+    Node *temp2 = l2;
+
+    if (temp1->data > temp2->data)
     {
-        mergedHead = head1;
-        mergedHead->next = mergeTwoLists(head1->next, head2);
+        tempHead = temp2;
+        tempTail = temp2;
+        temp2 = temp2->next;
     }
     else
     {
-        mergedHead = head2;
-        mergedHead->next = mergeTwoLists(head1, head2->next);
+        tempHead = temp1;
+        tempTail = temp1;
+        temp1 = temp1->next;
     }
 
-    return mergedHead;
+    while (temp1 && temp2)
+    {
+        if (temp1->data > temp2->data)
+        {
+            tempTail->next = temp2;
+            tempTail = tempTail->next;
+            temp2 = temp2->next;
+        }
+        else
+        {
+            tempTail->next = temp1;
+            tempTail = tempTail->next;
+            temp1 = temp1->next;
+        }
+    }
+
+    if (temp1)
+        tempTail->next = temp1;
+    if (temp2)
+        tempTail->next = temp2;
+
+    return tempHead;
 }
 
 Node *mergeSort(Node *head)
 {
-    if (head == nullptr || head->next == nullptr)
-        return head;
 
-    Node *middle = findMiddle(head);
-    Node *half2 = middle->next;
-    middle->next = nullptr;
+    if (head == nullptr || head->next == nullptr)
+    {
+        return head;
+    }
+
+    Node *midpoint = findMidPoint(head);
+    Node *secondHalf = midpoint->next;
+    midpoint->next = nullptr;
 
     Node *sortedHalf1 = mergeSort(head);
-    Node *sortedHalf2 = mergeSort(half2);
+    Node *sortedHalf2 = mergeSort(secondHalf);
 
-    return mergeTwoLists(sortedHalf1, sortedHalf2);
+    return mergeList(sortedHalf1, sortedHalf2);
 }
 
 int main()
 {
+
     Node *head = takeInput();
+
     print_LL(head);
 
     head = mergeSort(head);
 
-    // Print the sorted linked list
-    cout << "Sorted linked list: ";
+    cout << "Sorted List = ";
     print_LL(head);
 }
