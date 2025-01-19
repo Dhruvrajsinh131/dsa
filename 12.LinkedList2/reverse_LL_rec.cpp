@@ -9,6 +9,7 @@ Node *takeInput()
     Node *head = nullptr;
     Node *tail = nullptr;
 
+    cout << "Enter LL Elements \n Enter -1 To exit : " << endl;
     cin >> data;
 
     while (data != -1)
@@ -22,6 +23,7 @@ Node *takeInput()
         }
         else
         {
+
             tail->next = newNode;
             tail = tail->next;
         }
@@ -34,6 +36,7 @@ Node *takeInput()
 
 void print_LL(Node *head)
 {
+
     Node *temp = head;
 
     while (temp != nullptr)
@@ -46,27 +49,30 @@ void print_LL(Node *head)
     cout << endl;
 }
 
-Node *reverse_LL(Node *head)
+Node *reverse_LL_recursive(Node *head)
 {
     if (head == nullptr || head->next == nullptr)
     {
         return head;
     }
 
-    Node *reversedList = reverse_LL(head->next);
+    Node *reversed_list = reverse_LL_recursive(head->next);
 
     head->next->next = head;
+
     head->next = nullptr;
 
-    return reversedList;
+    return reversed_list;
 }
 
 int main()
 {
-
     Node *head = takeInput();
     print_LL(head);
 
-    head = reverse_LL(head);
+    head = reverse_LL_recursive(head);
+
+    cout << "Reversed LL = " << endl;
+
     print_LL(head);
 }
