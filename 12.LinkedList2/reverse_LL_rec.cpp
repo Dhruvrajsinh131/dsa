@@ -65,12 +65,30 @@ Node *reverse_LL_recursive(Node *head)
     return reversed_list;
 }
 
+Node *reverse_LL_iterative(Node *head)
+{
+    Node *prev = nullptr;
+    Node *current = head;
+    Node *nextNode = nullptr;
+
+    while (current != nullptr)
+    {
+        nextNode = current->next;
+        current->next = prev;
+        prev = current;
+        current = nextNode;
+    }
+
+    return prev;
+}
+
 int main()
 {
     Node *head = takeInput();
     print_LL(head);
 
-    head = reverse_LL_recursive(head);
+    // head = reverse_LL_recursive(head);
+    head = reverse_LL_iterative(head);
 
     cout << "Reversed LL = " << endl;
 
