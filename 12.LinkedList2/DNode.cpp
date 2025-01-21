@@ -1,11 +1,12 @@
-class Node
+class DNode
 {
+
 public:
     int data;
-    Node *next;
-    Node *prev;
+    DNode *next;
+    DNode *prev;
 
-    Node(int data)
+    DNode(int data)
     {
         this->data = data;
         this->next = nullptr;
