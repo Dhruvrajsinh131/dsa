@@ -21,6 +21,7 @@ Node *takeInput()
         else
         {
             tail->next = newNode;
+            newNode->prev = tail;
             tail = tail->next;
         }
 
@@ -82,6 +83,64 @@ void delete_n_nodes(Node *head, int m, int n)
     }
 }
 
+Node *swap_nodes(Node *head, int m, int n)
+{
+
+    Node *left = nullptr;
+    Node *right = nullptr;
+
+    int index = 0;
+    Node *temp = head;
+
+    while (temp)
+    {
+        if (index == m)
+        {
+            left = temp;
+        }
+        if (index == n)
+        {
+            right = temp;
+            break;
+        }
+
+        index++;
+        temp = temp->next;
+    }
+
+    if (!left || !right)
+        return head;
+
+    Node *prevLeft = left->prev;
+    Node *prevRight = right->prev;
+    Node *nextLeft = left->next;
+    Node *nextRight = right->next;
+
+    if (prevLeft)
+        prevLeft->next = right;
+    if (prevRight)
+        prevRight->next = left;
+
+    if (nextLeft)
+        nextLeft->prev = right;
+
+    if (nextRight)
+        nextRight->prev = left;
+
+    right->prev = prevLeft;
+    left->prev = prevRight;
+
+    right->next = nextLeft;
+    left->next = nextRight;
+
+    if (m == 0)
+        head = right;
+    if (n = 0)
+        head = left;
+
+    return head;
+}
+
 int main()
 {
 
@@ -91,12 +150,18 @@ int main()
 
     print_LL(head);
 
-    cout << "Enter ineterval : ";
+    // cout << "Enter ineterval : ";
+    // cin >> m;
+    // cout << "Enter number of node to be skipped : ";
+    // cin >> n;
+
+    // delete_n_nodes(head, m, n);
+
+    cout << "Enter Node 1 : ";
     cin >> m;
-    cout << "Enter number of node to be skipped : ";
+    cout << "Enter Node 2 : ";
     cin >> n;
 
-    delete_n_nodes(head, m, n);
-
+    swap_nodes(head, m, n);
     print_LL(head);
 }
