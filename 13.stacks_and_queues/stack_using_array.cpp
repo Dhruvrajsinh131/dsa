@@ -8,10 +8,10 @@ class StackUsingArray
     int capacity;
 
 public:
-    StackUsingArray(int totalSize)
+    StackUsingArray()
     {
-        this->capacity = totalSize;
-        this->data = new int[totalSize];
+        this->capacity = 4;
+        this->data = new int[4];
         this->nextIndex = 0;
     }
 
@@ -29,8 +29,17 @@ public:
     {
         if (this->capacity == nextIndex)
         {
-            cout << "The stack is full." << endl;
-            return;
+            int *newData = new int[2 * capacity];
+            for (int i = 0; i < capacity; i++)
+            {
+                newData[i] = data[i];
+            }
+
+            capacity *= 2;
+
+            delete[] data;
+
+            data = newData;
         }
         this->data[nextIndex] = element;
         this->nextIndex++;
@@ -74,12 +83,23 @@ public:
 
 int main()
 {
-    StackUsingArray s(100);
+    StackUsingArray s;
 
     s.push(34);
     s.push(5);
     s.push(567);
     s.push(2);
+    s.push(2);
+    s.push(2);
+    s.push(6);
+    s.push(45);
+    s.push(567);
+    s.push(23);
+    s.push(56);
+    s.push(645);
+    s.push(456);
+    s.push(2345);
+    s.push(34);
     s.push(756);
     s.push(56);
 
