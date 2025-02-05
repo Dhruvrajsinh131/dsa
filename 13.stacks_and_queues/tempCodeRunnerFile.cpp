@@ -1,4 +1,3 @@
-->push(75);
-    // s1->push(234);
-    // s1->push(567);
-    // s1->push(56);
+<< endl;
+    cout << q1.dequeue() << endl;
+    cout << q1.dequeue() << endl;
