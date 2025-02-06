@@ -18,7 +18,7 @@ public:
         nextIndex = 0;
         firstIndex = -1;
         size = 0;
-        capacity = s
+        capacity = s;
     }
 
     int getSize()
@@ -35,8 +35,28 @@ public:
     {
         if (size == capacity)
         {
-            cout << "Queue Full !" << endl;
-            return;
+
+            T *newData = new T[2 * capacity];
+            int j = 0;
+            for (int i = firstIndex; i < capacity; i++)
+            {
+                newData[j] = data[i];
+                j++;
+            }
+
+            for (int i = 0; i < firstIndex; i++)
+            {
+                newData[j] = data[i];
+                j++;
+            }
+            firstIndex = 0;
+            nextIndex = capacity;
+            delete[] data;
+            data = newData;
+            capacity *= 2;
+
+            // cout << "Queue Full !" << endl;
+            // return;
         }
         data[nextIndex] = element;
         nextIndex = (nextIndex + 1) % capacity;
@@ -95,8 +115,33 @@ int main()
     q1.enqueue(546);
     q1.enqueue(176);
     q1.enqueue(354);
+    q1.enqueue(56);
+    q1.enqueue(12);
+    q1.enqueue(546);
+    q1.enqueue(176);
+    q1.enqueue(354);
+    q1.enqueue(56);
+    q1.enqueue(12);
+    q1.enqueue(546);
+    q1.enqueue(176);
+    q1.enqueue(354);
 
-    cout << q1.front() << endl;
+    cout << q1.dequeue() << endl;
+    cout << q1.dequeue() << endl;
+    cout << q1.dequeue() << endl;
+    cout << q1.dequeue() << endl;
+    cout << q1.dequeue() << endl;
+    cout << q1.dequeue() << endl;
+    cout << q1.dequeue() << endl;
+    cout << q1.dequeue() << endl;
+    cout << q1.dequeue() << endl;
+    cout << q1.dequeue() << endl;
+    cout << q1.dequeue() << endl;
+    cout << q1.dequeue() << endl;
+    cout << q1.dequeue() << endl;
+    cout << q1.dequeue() << endl;
+    cout << q1.dequeue() << endl;
+    cout << q1.dequeue() << endl;
     cout << q1.dequeue() << endl;
     cout << q1.dequeue() << endl;
     cout << q1.dequeue() << endl;
