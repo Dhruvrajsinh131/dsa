@@ -2,23 +2,23 @@
 using namespace std;
 
 template <typename T>
+
 class Queue
 {
-
-    T *data;
     int firstIndex;
     int nextIndex;
-    int size;
     int capacity;
+    int size;
+    T *data;
 
 public:
-    Queue(int s)
+    Queue()
     {
-        data = new T[s];
-        nextIndex = 0;
+        data = new T[4];
         firstIndex = -1;
+        nextIndex = 0;
+        capacity = 4;
         size = 0;
-        capacity = s;
     }
 
     int getSize()
@@ -31,54 +31,11 @@ public:
         return size == 0;
     }
 
-    void enqueue(T element)
-    {
-        if (size == capacity)
-        {
-
-            T *newData = new T[2 * capacity];
-            int j = 0;
-            for (int i = firstIndex; i < capacity; i++)
-            {
-                newData[j] = data[i];
-                j++;
-            }
-
-            for (int i = 0; i < firstIndex; i++)
-            {
-                newData[j] = data[i];
-                j++;
-            }
-            firstIndex = 0;
-            nextIndex = capacity;
-            delete[] data;
-            data = newData;
-            capacity *= 2;
-
-            // cout << "Queue Full !" << endl;
-            // return;
-        }
-        data[nextIndex] = element;
-        nextIndex = (nextIndex + 1) % capacity;
-
-        if (firstIndex == -1)
-        {
-            firstIndex = 0;
-        }
-
-        size++;
-        if (size == 0)
-        {
-            firstIndex = -1;
-            nextIndex = 0;
-        }
-    }
-
     T front()
     {
         if (isEmpty())
         {
-            cout << "Queue is empty ! " << endl;
+            cout << "Queue is Empty . " << endl;
             return 0;
         }
         return data[firstIndex];
@@ -88,11 +45,11 @@ public:
     {
         if (isEmpty())
         {
-            cout << "Queue is empty ! " << endl;
+            cout << "Queue is Empty . " << endl;
             return 0;
         }
-
         T ans = data[firstIndex];
+
         firstIndex = (firstIndex + 1) % capacity;
         size--;
 
@@ -103,43 +60,54 @@ public:
         }
         return ans;
     }
+
+    void enqueue(T elem)
+    {
+        if (size == capacity)
+        {
+            int j = 0;
+            T *newData = new T[2 * capacity];
+            for (int i = firstIndex; i < capacity; i++)
+            {
+                newData[j] = data[i];
+            }
+            for (int i = 0; i < firstIndex; i++)
+            {
+                newData[j] = data[i];
+            }
+
+            firstIndex = 0;
+            nextIndex = capacity;
+            delete[] data;
+            data = newData;
+            capacity *= 2;
+        }
+
+        data[nextIndex] = elem;
+        nextIndex = (nextIndex + 1) % capacity;
+        size++;
+
+        if (firstIndex == -1)
+        {
+            firstIndex = 0;
+        }
+        if (size == 0)
+        {
+            firstIndex = -1;
+            nextIndex = 0;
+        }
+    }
 };
 
 int main()
 {
-    Queue<int> q1(10);
+    Queue<int> q1;
 
-    q1.enqueue(3243);
-    q1.enqueue(56);
-    q1.enqueue(12);
-    q1.enqueue(546);
-    q1.enqueue(176);
-    q1.enqueue(354);
-    q1.enqueue(56);
-    q1.enqueue(12);
-    q1.enqueue(546);
-    q1.enqueue(176);
-    q1.enqueue(354);
-    q1.enqueue(56);
-    q1.enqueue(12);
-    q1.enqueue(546);
-    q1.enqueue(176);
-    q1.enqueue(354);
+    q1.enqueue(32);
+    q1.enqueue(234);
+    q1.enqueue(235);
+    q1.enqueue(356);
 
-    cout << q1.dequeue() << endl;
-    cout << q1.dequeue() << endl;
-    cout << q1.dequeue() << endl;
-    cout << q1.dequeue() << endl;
-    cout << q1.dequeue() << endl;
-    cout << q1.dequeue() << endl;
-    cout << q1.dequeue() << endl;
-    cout << q1.dequeue() << endl;
-    cout << q1.dequeue() << endl;
-    cout << q1.dequeue() << endl;
-    cout << q1.dequeue() << endl;
-    cout << q1.dequeue() << endl;
-    cout << q1.dequeue() << endl;
-    cout << q1.dequeue() << endl;
     cout << q1.dequeue() << endl;
     cout << q1.dequeue() << endl;
     cout << q1.dequeue() << endl;

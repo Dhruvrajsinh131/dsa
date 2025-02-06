@@ -1,4 +1,1 @@
-   cout << q1.dequeue() << endl;
-    cout << q1.dequeue() << endl;
-    cout << q1.dequeue() << endl;
- 
+        nextIndex = (nextIndex + 1) % capacity;
