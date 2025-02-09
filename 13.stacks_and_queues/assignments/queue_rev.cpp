@@ -2,9 +2,9 @@
 using namespace std;
 #include <queue>
 
-void rev_queue(queue<int> &q, int lastElem)
+void rev_queue(queue<int> &q)
 {
-    if (q.front() == lastElem)
+    if (q.empty())
     {
         return;
     }
@@ -12,24 +12,20 @@ void rev_queue(queue<int> &q, int lastElem)
     int valFront = q.front();
     q.pop();
 
-    rev_queue(q, lastElem);
+    rev_queue(q);
 
     q.push(valFront);
 }
 
 void print_queue(queue<int> q)
 {
-    if (q.empty())
+    cout << "Queue = ";
+    while (!q.empty())
     {
-        cout << "Queue = ";
-        return;
+        cout << q.front() << " ";
+        q.pop();
     }
-
-    int val = q.front();
-    q.pop();
-
-    print_queue(q);
-    cout << val << " ";
+    cout << endl;
 }
 
 int main()
@@ -41,12 +37,10 @@ int main()
     q1.push(3);
     q1.push(4);
 
-    int lastElem = q1.back();
-
     print_queue(q1);
     cout << endl;
 
-    rev_queue(q1, lastElem);
+    rev_queue(q1);
     print_queue(q1);
     cout << endl;
 }
