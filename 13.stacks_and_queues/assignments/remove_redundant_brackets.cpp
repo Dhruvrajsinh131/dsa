@@ -16,10 +16,15 @@ bool isExpressionHasRedundantBrackes(string str)
         {
             int count = 0;
 
-            while (!s.empty() && s.top() != ')')
+            while (!s.empty() && s.top() != '(')
             {
+                char top = s.top();
                 s.pop();
-                count++;
+
+                if (top == '+' || top == '-' || top == '*' || top == '/')
+                {
+                    count++;
+                }
             }
 
             if (!s.empty())
@@ -28,7 +33,7 @@ bool isExpressionHasRedundantBrackes(string str)
             }
 
             cout << count << endl;
-            if (count <= 1)
+            if (count == 0)
             {
                 return true;
             }
@@ -46,7 +51,7 @@ int main()
 
 {
 
-    string expression = "a+(b)+c";
+    string expression = "(a+b)";
 
     if (isExpressionHasRedundantBrackes(expression))
     {
