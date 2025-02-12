@@ -2,15 +2,13 @@
 using namespace std;
 #include <stack>
 
-bool isExpressionHasRedundantBrackes(string str)
+bool checkRedundant(string expression)
 {
     stack<char> s;
 
-    int count = 0;
-
-    for (int i = 0; str[i] != '\0'; i++)
+    for (int i = 0; expression[i]; i++)
     {
-        char ch = str[i];
+        char ch = expression[i];
 
         if (ch == ')')
         {
@@ -18,10 +16,11 @@ bool isExpressionHasRedundantBrackes(string str)
 
             while (!s.empty() && s.top() != '(')
             {
+
                 char top = s.top();
                 s.pop();
 
-                if (top == '+' || top == '-' || top == '*' || top == '/')
+                if (top == '+' || top == '-' || top == '%' || top == '/' || top == '*')
                 {
                     count++;
                 }
@@ -32,7 +31,6 @@ bool isExpressionHasRedundantBrackes(string str)
                 s.pop();
             }
 
-            cout << count << endl;
             if (count == 0)
             {
                 return true;
@@ -43,22 +41,19 @@ bool isExpressionHasRedundantBrackes(string str)
             s.push(ch);
         }
     }
-
     return false;
 }
 
 int main()
-
 {
+    string expression = "(a+(b+c))";
 
-    string expression = "(a+b)";
-
-    if (isExpressionHasRedundantBrackes(expression))
+    if (checkRedundant(expression))
     {
-        cout << "Expression  redundant brackets " << endl;
+        cout << "Contains Redundant" << endl;
     }
     else
     {
-        cout << "Expression does not contain redundant brackets " << endl;
+        cout << "Does not contain redundant" << endl;
     }
 }
