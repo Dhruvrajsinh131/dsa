@@ -38,6 +38,43 @@ TreeNode<int> *takeInputLevelWise()
     return root;
 }
 
+int nodeCount(TreeNode<int> *root)
+{
+
+    int count = 1;
+
+    for (int i = 0; i < root->children.size(); i++)
+    {
+        count += nodeCount(root->children[i]);
+    }
+
+    return count;
+}
+
+int sumOfAllNodes(TreeNode<int> *root)
+{
+    int sum = root->data;
+
+    for (int i = 0; i < root->children.size(); i++)
+    {
+        sum += sumOfAllNodes(root->children[i]);
+    }
+
+    return sum;
+}
+
+int getLargestNode(TreeNode<int> *root)
+{
+    int largestNode = root->data;
+
+    for (int i = 0; i < root->children.size(); i++)
+    {
+        largestNode = max(largestNode, getLargestNode(root->children[i]));
+    }
+
+    return largestNode;
+}
+
 void printTreeLevelWise(TreeNode<int> *root)
 {
     if (!root)
@@ -80,4 +117,10 @@ int main()
 {
     TreeNode<int> *root = takeInputLevelWise();
     printTreeLevelWise(root);
+
+    cout << endl;
+
+    cout << "Total Nodes = " << nodeCount(root) << endl;
+    cout << "Sum Of All Nodes = " << sumOfAllNodes(root) << endl;
+    cout << "Largest Node = " << getLargestNode(root) << endl;
 }
