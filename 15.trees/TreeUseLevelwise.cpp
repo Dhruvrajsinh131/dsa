@@ -38,56 +38,6 @@ TreeNode<int> *takeInputLevelWise()
     return root;
 }
 
-int nodeCount(TreeNode<int> *root)
-{
-
-    int count = 1;
-
-    for (int i = 0; i < root->children.size(); i++)
-    {
-        count += nodeCount(root->children[i]);
-    }
-
-    return count;
-}
-
-int sumOfAllNodes(TreeNode<int> *root)
-{
-    int sum = root->data;
-
-    for (int i = 0; i < root->children.size(); i++)
-    {
-        sum += sumOfAllNodes(root->children[i]);
-    }
-
-    return sum;
-}
-
-int getLargestNode(TreeNode<int> *root)
-{
-    int largestNode = root->data;
-
-    for (int i = 0; i < root->children.size(); i++)
-    {
-        largestNode = max(largestNode, getLargestNode(root->children[i]));
-    }
-
-    return largestNode;
-}
-
-int findHeight(TreeNode<int> *root)
-{
-
-    int maxChildHeight = 0;
-
-    for (int i = 0; i < root->children.size(); i++)
-    {
-        maxChildHeight = max(maxChildHeight, findHeight(root->children[i]));
-    }
-
-    return maxChildHeight + 1;
-}
-
 void printTreeLevelWise(TreeNode<int> *root)
 {
     if (!root)
@@ -124,6 +74,55 @@ void printTreeLevelWise(TreeNode<int> *root)
 
         cout << "-----------------------------------------------------" << endl;
     }
+}
+
+int nodeCount(TreeNode<int> *root)
+{
+    int count = 1;
+
+    for (int i = 0; i < root->children.size(); i++)
+    {
+        count += nodeCount(root->children[i]);
+    }
+
+    return count;
+}
+
+int sumOfAllNodes(TreeNode<int> *root)
+{
+
+    int sum = root->data;
+
+    for (int i = 0; i < root->children.size(); i++)
+    {
+        sum += sumOfAllNodes(root->children[i]);
+    }
+
+    return sum;
+}
+
+int getLargestNode(TreeNode<int> *root)
+{
+    int largestNode = root->data;
+
+    for (int i = 0; i < root->children.size(); i++)
+    {
+        largestNode = max(largestNode, getLargestNode(root->children[i]));
+    }
+
+    return largestNode;
+}
+
+int findHeight(TreeNode<int> *root)
+{
+    int maxHeight = 0;
+
+    for (int i = 0; i < root->children.size(); i++)
+    {
+        maxHeight = max(maxHeight, findHeight(root->children[i]));
+    }
+
+    return maxHeight + 1;
 }
 
 int main()
