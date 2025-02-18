@@ -113,6 +113,24 @@ int getLargestNode(TreeNode<int> *root)
     return largestNode;
 }
 
+void printAtLevelk(TreeNode<int> *root, int k)
+{
+    if (root == nullptr)
+    {
+        return;
+    }
+
+    if (k == 0)
+    {
+        cout << root->data << endl;
+    }
+
+    for (int i = 0; i < root->children.size(); i++)
+    {
+        printAtLevelk(root->children[i], k - 1);
+    }
+}
+
 int findHeight(TreeNode<int> *root)
 {
     int maxHeight = 0;
@@ -136,4 +154,5 @@ int main()
     cout << "Sum Of All Nodes = " << sumOfAllNodes(root) << endl;
     cout << "Largest Node = " << getLargestNode(root) << endl;
     cout << "Height Of a tree = " << findHeight(root) << endl;
+    printAtLevelk(root, 1);
 }
