@@ -143,6 +143,26 @@ int findHeight(TreeNode<int> *root)
     return maxHeight + 1;
 }
 
+int countOfLeafNodes(TreeNode<int> *root)
+{
+    if (root == nullptr)
+        return 0;
+
+    if (root->children.empty())
+    {
+        return 1;
+    }
+
+    int leafCount = 0;
+
+    for (int i = 0; i < root->children.size(); i++)
+    {
+        leafCount += countOfLeafNodes(root->children[i]);
+    }
+
+    return leafCount;
+}
+
 int main()
 {
     TreeNode<int> *root = takeInputLevelWise();
@@ -155,4 +175,5 @@ int main()
     cout << "Largest Node = " << getLargestNode(root) << endl;
     cout << "Height Of a tree = " << findHeight(root) << endl;
     printAtLevelk(root, 1);
+    cout << "Total count of leaf Nodes of the tree = " << countOfLeafNodes(root) << endl;
 }
