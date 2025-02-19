@@ -163,6 +163,36 @@ int countOfLeafNodes(TreeNode<int> *root)
     return leafCount;
 }
 
+void preOrderTraverse(TreeNode<int> *root)
+{
+    if (root == nullptr)
+        return;
+
+    cout << root->data << " ";
+
+    for (int i = 0; i < root->children.size(); i++)
+    {
+        preOrderTraverse(root->children[i]);
+    }
+}
+
+void postOrder(TreeNode<int> *root)
+{
+    if (root == nullptr)
+    {
+        return;
+    }
+
+    for (int i = 0; i < root->children.size(); i++)
+    {
+        postOrder(root->children[i]);
+    }
+
+    cout << root->data << " ";
+}
+
+// 5 2 4 3 2 2 1 0 0 0
+
 int main()
 {
     TreeNode<int> *root = takeInputLevelWise();
@@ -176,4 +206,13 @@ int main()
     cout << "Height Of a tree = " << findHeight(root) << endl;
     printAtLevelk(root, 1);
     cout << "Total count of leaf Nodes of the tree = " << countOfLeafNodes(root) << endl;
+
+    cout << "Preorder = ";
+    preOrderTraverse(root);
+    cout << endl;
+
+    cout << "Postorder = ";
+
+    postOrder(root);
+    cout << endl;
 }
