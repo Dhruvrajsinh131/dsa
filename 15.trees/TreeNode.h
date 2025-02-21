@@ -11,4 +11,14 @@ public:
     {
         this->data = data;
     }
+
+    // for deleting
+    ~TreeNode()
+    {
+
+        for (int i = 0; i < this->children.size(); i++)
+        {
+            delete children[i];
+        }
+    }
 };

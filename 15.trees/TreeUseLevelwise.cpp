@@ -191,6 +191,18 @@ void postOrder(TreeNode<int> *root)
     cout << root->data << " ";
 }
 
+// This is way 1 of doing it
+void deleteTree(TreeNode<int> *root)
+{
+
+    for (int i = 0; i < root->children.size(); i++)
+    {
+        deleteTree(root->children[i]);
+    }
+
+    delete root;
+}
+
 // 5 2 4 3 2 2 1 0 0 0
 
 int main()
@@ -215,4 +227,11 @@ int main()
 
     postOrder(root);
     cout << endl;
+
+    // way 1
+    // deleteTree(root);
+
+    // way 2
+    // using destructor
+    delete root;
 }
