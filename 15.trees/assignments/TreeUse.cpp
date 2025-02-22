@@ -82,6 +82,23 @@ bool containsX(TreeNode<int> *root, int x)
     return false;
 }
 
+int countGreaterNodes(TreeNode<int> *root, int num)
+{
+    if (!root)
+        return 0;
+
+    int count = 0;
+
+    if (root->data > num)
+        count++;
+
+    for (int i = 0; i < root->children.size(); i++)
+    {
+        count += countGreaterNodes(root->children[i], num);
+    }
+    return count;
+}
+
 // 5 2 4 3 2  2 1 0 0 0
 
 int main()
@@ -90,4 +107,6 @@ int main()
 
     printTree(root);
     cout << containsX(root, 5) << endl;
+
+    cout << countGreaterNodes(root, 1) << endl;
 }
