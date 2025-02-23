@@ -1,14 +1,16 @@
 #include <iostream>
-using namespace std;
+#include <vector>
 #include <queue>
 #include "TreeNode.h"
+
+using namespace std;
 
 TreeNode<int> *takeTreeInput()
 {
     int rootData;
-    cout << "Enter the data at root : ";
+    cout << "Enter the data at root: ";
     cin >> rootData;
-    TreeNode<int> *root = new TreeNode(rootData);
+    TreeNode<int> *root = new TreeNode<int>(rootData);
     queue<TreeNode<int> *> pendingNodes;
     pendingNodes.push(root);
 
@@ -18,24 +20,22 @@ TreeNode<int> *takeTreeInput()
         pendingNodes.pop();
 
         int n;
-        cout << "Enter numeber of children for Node = " << front->data << " -> ";
+        cout << "Enter number of children for Node = " << front->data << " -> ";
         cin >> n;
 
         for (int i = 0; i < n; i++)
         {
             int childData;
-            cout << "Enter value at index = " << i << "For node = " << front->data << " . ";
+            cout << "Enter value at index = " << i << " for node = " << front->data << ": ";
             cin >> childData;
 
-            TreeNode<int> *childNode = new TreeNode(childData);
-
+            TreeNode<int> *childNode = new TreeNode<int>(childData);
             front->children.push_back(childNode);
             pendingNodes.push(childNode);
         }
     }
     return root;
 }
-
 void printTree(TreeNode<int> *root)
 {
     if (!root)
@@ -64,39 +64,36 @@ void printTree(TreeNode<int> *root)
     }
 }
 
-bool containsX(TreeNode<int> *root, int x)
+pair<TreeNode<int> *, int> maxChildSumNodeHelper(TreeNode<int> *root)
 {
     if (!root)
-        return false;
+        return {nullptr, 0};
 
-    if (root->data == x)
+    int currentSum = root->data;
+    for (TreeNode<int> *child : root->children)
     {
-        return true;
+        currentSum += child->data;
     }
 
-    for (int i = 0; i < root->children.size(); i++)
+    TreeNode<int> *maxNode = root;
+    int maxSum = currentSum;
+
+    for (TreeNode<int> *child : root->children)
     {
-        containsX(root->children[i], x);
+        pair<TreeNode<int> *, int> childResult = maxChildSumNodeHelper(child);
+        if (childResult.second > maxSum)
+        {
+            maxSum = childResult.second;
+            maxNode = childResult.first;
+        }
     }
 
-    return false;
+    return {maxNode, maxSum};
 }
 
-int countGreaterNodes(TreeNode<int> *root, int num)
+TreeNode<int> *maxChildSumNode(TreeNode<int> *root)
 {
-    if (!root)
-        return 0;
-
-    int count = 0;
-
-    if (root->data > num)
-        count++;
-
-    for (int i = 0; i < root->children.size(); i++)
-    {
-        count += countGreaterNodes(root->children[i], num);
-    }
-    return count;
+    return maxChildSumNodeHelper(root).first;
 }
 
 // 5 2 4 3 2  2 1 0 0 0
@@ -104,9 +101,10 @@ int countGreaterNodes(TreeNode<int> *root, int num)
 int main()
 {
     TreeNode<int> *root = takeTreeInput();
+    TreeNode<int> *maxNode = maxChildSumNode(root);
 
-    printTree(root);
-    cout << containsX(root, 5) << endl;
+    if (maxNode)
+        cout << "Node with maximum child sum: " << maxNode->data << endl;
 
-    cout << countGreaterNodes(root, 1) << endl;
+    return 0;
 }
