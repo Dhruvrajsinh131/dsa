@@ -64,6 +64,7 @@ void printTree(TreeNode<int> *root)
     }
 }
 
+// Assignment 2
 pair<TreeNode<int> *, int> maxChildSumNodeHelper(TreeNode<int> *root)
 {
     if (!root)
@@ -97,15 +98,39 @@ TreeNode<int> *maxChildSumNode(TreeNode<int> *root)
     return maxChildSumNodeHelper(root).first;
 }
 
+// Assignment 4
+bool areIdentical(TreeNode<int> *root1, TreeNode<int> *root2)
+{
+    if (root1 == nullptr && root2 == nullptr)
+        return true;
+    if (root1 == nullptr || root2 == nullptr)
+        return false;
+    if (root1->data != root2->data)
+        return false;
+    if (root1->children.size() != root2->children.size())
+        return false;
+
+    for (int i = 0; i < root1->children.size(); i++)
+    {
+        if (!areIdentical(root1->children[i], root2->children[i]))
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
+
 // 5 2 4 3 2  2 1 0 0 0
 
 int main()
 {
-    TreeNode<int> *root = takeTreeInput();
-    TreeNode<int> *maxNode = maxChildSumNode(root);
+    TreeNode<int> *root1 = takeTreeInput();
+    TreeNode<int> *root2 = takeTreeInput();
+    TreeNode<int> *maxNode = maxChildSumNode(root1);
 
     if (maxNode)
         cout << "Node with maximum child sum: " << maxNode->data << endl;
 
-    return 0;
+    cout << "Are trees Identical ?? " << areIdentical(root1, root2);
 }
