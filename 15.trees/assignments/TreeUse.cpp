@@ -75,16 +75,17 @@ pair<TreeNode<int> *, int> maxChildSumNodeHelper(TreeNode<int> *root)
         currentSum += child->data;
     }
 
-    TreeNode<int> *maxNode = root;
     int maxSum = currentSum;
+    TreeNode<int> *maxNode = root;
 
     for (TreeNode<int> *child : root->children)
     {
-        pair<TreeNode<int> *, int> childResult = maxChildSumNodeHelper(child);
-        if (childResult.second > maxSum)
+        pair<TreeNode<int> *, int> childPair = maxChildSumNodeHelper(child);
+
+        if (childPair.second > maxSum)
         {
-            maxSum = childResult.second;
-            maxNode = childResult.first;
+            maxSum = childPair.second;
+            maxNode = childPair.first;
         }
     }
 
