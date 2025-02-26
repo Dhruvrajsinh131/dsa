@@ -146,6 +146,40 @@ int nextLarger(TreeNode<int> *root, int x)
     return ans;
 }
 
+pair<int, int> secondLargetInTree(TreeNode<int> *root)
+{
+    if (!root)
+        return {INT_MIN, INT_MIN};
+
+    int largest = root->data;
+    int secondLargest = INT_MIN;
+
+    for (int i = 0; i < root->children.size(); i++)
+    {
+        pair<int, int> temp = secondLargetInTree(root->children[i]);
+
+        // Compare Temp max with Current Max
+        if (temp.second > largest)
+        {
+
+            // update secondLargest
+            secondLargest = max(largest, temp.second);
+            largest = temp.second;
+        }
+        else if (temp.second > secondLargest && temp.second != largest)
+        {
+            secondLargest = temp.second;
+        }
+
+        if (temp.first > secondLargest && temp.first != largest)
+        {
+            secondLargest = temp.first;
+        }
+    }
+
+    return {secondLargest, largest};
+}
+
 // 5 2 4 3 2  2 1 0 0 0
 
 int main()
@@ -160,5 +194,7 @@ int main()
     // cout << "Are trees Identical ?? " << areIdentical(root1, root2);
 
     cout << endl;
-    cout << " Value = " << nextLarger(root1, 4);
+    // cout << " Value = " << nextLarger(root1, 4);
+
+    cout << "Largest Value =" << secondLargetInTree(root1).first;
 }
