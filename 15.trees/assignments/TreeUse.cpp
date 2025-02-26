@@ -162,7 +162,7 @@ pair<int, int> secondLargetInTree(TreeNode<int> *root)
         if (temp.second > largest)
         {
 
-            // update secondLargest
+            // update second Largest
             secondLargest = max(largest, temp.second);
             largest = temp.second;
         }
@@ -178,6 +178,32 @@ pair<int, int> secondLargetInTree(TreeNode<int> *root)
     }
 
     return {secondLargest, largest};
+}
+
+void replaceWithDepthHelper(TreeNode<int> *root, int depth)
+{
+    if (!root)
+        return;
+
+    root->data = depth;
+    for (int i = 0; i < root->children.size(); i++)
+    {
+        replaceWithDepthHelper(root->children[i], depth + 1);
+    }
+}
+
+void preOrderTree(TreeNode<int> *root)
+{
+    cout << root->data << " ";
+    for (int i = 0; i < root->children.size(); i++)
+    {
+        preOrderTree(root->children[i]);
+    }
+}
+
+void replaceWithDepth(TreeNode<int> *root)
+{
+    replaceWithDepthHelper(root, 0);
 }
 
 // 5 2 4 3 2  2 1 0 0 0
@@ -196,5 +222,14 @@ int main()
     cout << endl;
     // cout << " Value = " << nextLarger(root1, 4);
 
-    cout << "Largest Value =" << secondLargetInTree(root1).first;
+    // cout << "Largest Value =" << secondLargetInTree(root1).first;
+
+    cout << "Tree Before replace with depth : " << endl;
+    preOrderTree(root1);
+
+    replaceWithDepth(root1);
+
+    cout
+        << "Tree Before after with depth : " << endl;
+    preOrderTree(root1);
 }
