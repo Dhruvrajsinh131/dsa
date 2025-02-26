@@ -121,16 +121,44 @@ bool areIdentical(TreeNode<int> *root1, TreeNode<int> *root2)
     return true;
 }
 
+int nextLarger(TreeNode<int> *root, int x)
+{
+    if (!root)
+        return -1;
+
+    int ans = -1;
+
+    if (root->data > x)
+    {
+        ans = root->data;
+    }
+
+    for (int i = 0; i < root->children.size(); i++)
+    {
+        int temp = nextLarger(root->children[i], x);
+
+        if (temp > x)
+        {
+            ans = temp;
+        }
+    }
+
+    return ans;
+}
+
 // 5 2 4 3 2  2 1 0 0 0
 
 int main()
 {
     TreeNode<int> *root1 = takeTreeInput();
-    TreeNode<int> *root2 = takeTreeInput();
-    TreeNode<int> *maxNode = maxChildSumNode(root1);
+    // TreeNode<int> *root2 = takeTreeInput();
+    // TreeNode<int> *maxNode = maxChildSumNode(root1);
 
-    if (maxNode)
-        cout << "Node with maximum child sum: " << maxNode->data << endl;
+    // if (maxNode)
+    //     cout << "Node with maximum child sum: " << maxNode->data << endl;
 
-    cout << "Are trees Identical ?? " << areIdentical(root1, root2);
+    // cout << "Are trees Identical ?? " << areIdentical(root1, root2);
+
+    cout << endl;
+    cout << " Value = " << nextLarger(root1, 4);
 }
