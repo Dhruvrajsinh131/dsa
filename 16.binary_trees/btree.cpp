@@ -1,7 +1,6 @@
 #include <iostream>
 using namespace std;
 
-// Definition of a Node
 struct Node
 {
     int data;
@@ -15,7 +14,6 @@ struct Node
     }
 };
 
-// Binary Tree Class
 class BinaryTree
 {
 public:
@@ -26,7 +24,6 @@ public:
         root = nullptr;
     }
 
-    // Insert a node
     Node *insert(Node *root, int data)
     {
         if (root == nullptr)
@@ -44,7 +41,6 @@ public:
         return root;
     }
 
-    // Inorder Traversal (Left, Root, Right)
     void inorder(Node *root)
     {
         if (root != nullptr)
@@ -55,7 +51,6 @@ public:
         }
     }
 
-    // Preorder Traversal (Root, Left, Right)
     void preorder(Node *root)
     {
         if (root != nullptr)
@@ -66,7 +61,6 @@ public:
         }
     }
 
-    // Postorder Traversal (Left, Right, Root)
     void postorder(Node *root)
     {
         if (root != nullptr)
@@ -77,7 +71,6 @@ public:
         }
     }
 
-    // Find the minimum value node (used in deletion)
     Node *findMin(Node *root)
     {
         while (root->left != nullptr)
@@ -87,7 +80,6 @@ public:
         return root;
     }
 
-    // Delete a node
     Node *deleteNode(Node *root, int key)
     {
         if (root == nullptr)
@@ -103,13 +95,11 @@ public:
         }
         else
         {
-            // Case 1: No child
             if (root->left == nullptr && root->right == nullptr)
             {
                 delete root;
                 return nullptr;
             }
-            // Case 2: One child
             else if (root->left == nullptr)
             {
                 Node *temp = root->right;
@@ -122,7 +112,6 @@ public:
                 delete root;
                 return temp;
             }
-            // Case 3: Two children
             Node *temp = findMin(root->right);
             root->data = temp->data;
             root->right = deleteNode(root->right, temp->data);
