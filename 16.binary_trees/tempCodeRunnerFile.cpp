@@ -1,2 +1,1 @@
-
-        cout << "Right -> " << root->right->da
+rootData

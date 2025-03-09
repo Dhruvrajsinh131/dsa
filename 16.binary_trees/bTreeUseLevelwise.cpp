@@ -1,0 +1,77 @@
+#include <iostream>
+using namespace std;
+#include "btreeNode.h"
+#include <queue>
+
+BtreeNode<int> *takeInputLevelWise()
+{
+
+    int rootData;
+    cout << "Enter RootData" << endl;
+    cin >> rootData;
+
+    if (rootData == -1)
+    {
+        return nullptr;
+    }
+
+    BtreeNode<int> *root = new BtreeNode(rootData);
+
+    queue<BtreeNode<int> *> pendingNodes;
+
+    pendingNodes.push(root);
+
+    while (!pendingNodes.empty())
+    {
+        BtreeNode<int> *front = pendingNodes.front();
+        pendingNodes.pop();
+
+        cout << "Enter Left Child for " << front->data << " : ";
+        int leftChildData;
+        cin >> leftChildData;
+        if (leftChildData != -1)
+        {
+            BtreeNode<int> *leftchild = new BtreeNode(leftChildData);
+            front->left = leftchild;
+            pendingNodes.push(leftchild);
+        }
+        cout << "Enter Right Child for " << front->data << " : ";
+        int rightChildData;
+        cin >> rightChildData;
+        if (rightChildData != -1)
+        {
+            BtreeNode<int> *rightChild = new BtreeNode(rightChildData);
+            front->right = rightChild;
+            pendingNodes.push(rightChild);
+        }
+    }
+
+    return root;
+}
+
+void printBTree(BtreeNode<int> *root)
+{
+    if (!root)
+        return;
+
+    cout << root->data << "-> ";
+
+    if (root->left)
+    {
+        cout << root->left->data;
+    }
+
+    if (root->right)
+    {
+        cout << "<->" << root->right->data;
+    }
+    cout << endl;
+    printBTree(root->left);
+    printBTree(root->right);
+}
+
+int main()
+{
+    BtreeNode<int> *root = takeInputLevelWise();
+    printBTree(root);
+}
