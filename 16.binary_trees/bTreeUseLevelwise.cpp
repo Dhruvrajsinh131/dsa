@@ -107,9 +107,31 @@ void printTreeLevelWise(BtreeNode<int> *root)
     }
 }
 
+int countNodes(BtreeNode<int> *root)
+{
+    if (root == nullptr)
+        return 0;
+
+    return 1 + countNodes(root->left) + countNodes(root->right);
+}
+
+int heightOfTree(BtreeNode<int> *root)
+{
+    if (root == nullptr)
+        return 0;
+
+    int leftHeight = heightOfTree(root->left);
+    int rightHeight = heightOfTree(root->right);
+
+    return 1 + max(leftHeight, rightHeight);
+}
+
 int main()
 {
     BtreeNode<int> *root = takeInputLevelWise();
     // printBTree(root);
     printTreeLevelWise(root);
+
+    // cout << "Node Count = " << countNodes(root) << " ";
+    cout << "Height of tree = " << heightOfTree(root) << " ";
 }
