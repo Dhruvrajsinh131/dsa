@@ -70,8 +70,46 @@ void printBTree(BtreeNode<int> *root)
     printBTree(root->right);
 }
 
+void printTreeLevelWise(BtreeNode<int> *root)
+{
+    if (!root)
+        return;
+
+    queue<BtreeNode<int> *> pendingNodes;
+    pendingNodes.push(root);
+
+    while (!pendingNodes.empty())
+    {
+
+        BtreeNode<int> *front = pendingNodes.front();
+
+        cout << front->data << ":";
+        cout << "LEFT:";
+        if (front->left && front->left->data)
+        {
+            cout << front->left->data;
+        }
+        else
+            cout << "-1";
+        cout << ",";
+        cout << "RIGHT:";
+        if (front->right && front->right->data)
+        {
+            cout << front->right->data;
+        }
+        else
+            cout << "-1";
+
+        cout << endl;
+        pendingNodes.pop();
+        printTreeLevelWise(front->left);
+        printTreeLevelWise(front->right);
+    }
+}
+
 int main()
 {
     BtreeNode<int> *root = takeInputLevelWise();
-    printBTree(root);
+    // printBTree(root);
+    printTreeLevelWise(root);
 }
