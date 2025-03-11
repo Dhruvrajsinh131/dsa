@@ -106,6 +106,20 @@ void printTreeLevelWise(BtreeNode<int> *root)
         printTreeLevelWise(front->right);
     }
 }
+void mirrorTree(BtreeNode<int> *root)
+{
+    if (!root)
+    {
+        return;
+    }
+
+    BtreeNode<int> *temp = root->left;
+    root->left = root->right;
+    root->right = temp;
+
+    mirrorTree(root->left);
+    mirrorTree(root->right);
+}
 
 int countNodes(BtreeNode<int> *root)
 {
@@ -130,6 +144,8 @@ int main()
 {
     BtreeNode<int> *root = takeInputLevelWise();
     // printBTree(root);
+    printTreeLevelWise(root);
+    mirrorTree(root);
     printTreeLevelWise(root);
 
     // cout << "Node Count = " << countNodes(root) << " ";
