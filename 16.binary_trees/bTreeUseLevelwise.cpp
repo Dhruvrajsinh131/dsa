@@ -140,14 +140,27 @@ int heightOfTree(BtreeNode<int> *root)
     return 1 + max(leftHeight, rightHeight);
 }
 
+void preorderTraversal(BtreeNode<int> *root)
+{
+    if (root == nullptr)
+        return;
+
+    cout << root->data << " ";
+    preorderTraversal(root->left);
+    preorderTraversal(root->right);
+}
+
 int main()
 {
     BtreeNode<int> *root = takeInputLevelWise();
     // printBTree(root);
-    printTreeLevelWise(root);
-    mirrorTree(root);
-    printTreeLevelWise(root);
+    // printTreeLevelWise(root);
+    // mirrorTree(root);
+    // printTreeLevelWise(root);
 
     // cout << "Node Count = " << countNodes(root) << " ";
-    cout << "Height of tree = " << heightOfTree(root) << " ";
+    // cout << "Height of tree = " << heightOfTree(root) << " ";
+
+    printBTree(root);
+    preorderTraversal(root);
 }
