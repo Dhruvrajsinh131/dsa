@@ -149,6 +149,15 @@ void preorderTraversal(BtreeNode<int> *root)
     preorderTraversal(root->left);
     preorderTraversal(root->right);
 }
+void inorderTraversal(BtreeNode<int> *root)
+{
+    if (root == nullptr)
+        return;
+
+    inorderTraversal(root->left);
+    cout << root->data << " ";
+    inorderTraversal(root->right);
+}
 
 int main()
 {
@@ -163,4 +172,6 @@ int main()
 
     printBTree(root);
     preorderTraversal(root);
+    cout << endl;
+    inorderTraversal(root);
 }
