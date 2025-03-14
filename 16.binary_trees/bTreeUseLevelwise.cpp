@@ -183,6 +183,7 @@ int main()
     printBTree(root);
     preorderTraversal(root);
     cout << endl;
-    // inorderTraversal(root);
+    inorderTraversal(root);
+    cout << endl;
     postorderTraversal(root);
 }
