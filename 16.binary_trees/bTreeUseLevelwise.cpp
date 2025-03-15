@@ -168,10 +168,48 @@ void postorderTraversal(BtreeNode<int> *root)
     postorderTraversal(root->right);
     cout << root->data << " ";
 }
+int search(int inorder[], int start, int end, int value)
+{
+    for (int i = start; i <= end; i++)
+    {
+        if (inorder[i] == value)
+            return i;
+    }
+    return -1;
+}
+
+BtreeNode<int> *buildTreeHelper(int preorder[], int inorder[], int &preIndex, int inStart, int inEnd)
+{
+    if (inStart > inEnd)
+    {
+        return nullptr;
+    }
+
+    int rootVal = preorder[preIndex++];
+    BtreeNode<int> *root = new BtreeNode(rootVal);
+
+    int inIndex = search(inorder, inStart, inEnd, rootVal);
+
+    root->left = buildTreeHelper(preorder, inorder, preIndex, inStart, inIndex - 1);
+    root->right = buildTreeHelper(preorder, inorder, preIndex, inIndex + 1, inEnd);
+
+    return root;
+}
+
+BtreeNode<int> *buildTree(int preorder[], int inorder[], int n)
+{
+    int preIndex = 0;
+    return buildTreeHelper(preorder, inorder, preIndex, 0, n - 1);
+}
 
 int main()
 {
-    BtreeNode<int> *root = takeInputLevelWise();
+    // BtreeNode<int> *root = takeInputLevelWise();
+    int preorder[] = {3, 9, 20, 15, 7};
+    int inorder[] = {9, 3, 15, 20, 7};
+
+    BtreeNode<int> *root = buildTree(preorder, inorder, 5);
+
     // printBTree(root);
     // printTreeLevelWise(root);
     // mirrorTree(root);
@@ -181,9 +219,9 @@ int main()
     // cout << "Height of tree = " << heightOfTree(root) << " ";
 
     printBTree(root);
-    preorderTraversal(root);
-    cout << endl;
-    inorderTraversal(root);
-    cout << endl;
-    postorderTraversal(root);
+    //     preorderTraversal(root);
+    //     cout << endl;
+    //     inorderTraversal(root);
+    //     cout << endl;
+    //     postorderTraversal(root);
 }
