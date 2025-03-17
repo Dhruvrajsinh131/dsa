@@ -196,6 +196,27 @@ BtreeNode<int> *buildTreeHelper(int preorder[], int inorder[], int &preIndex, in
     return root;
 }
 
+pair<int, int> heightDiameter(BtreeNode<int> *root)
+{
+    if (!root)
+    {
+        return {0, 0};
+    }
+    pair<int, int> leftAns = heightDiameter(root->left);
+    pair<int, int> rightAns = heightDiameter(root->right);
+
+    int ld = leftAns.second;
+    int lh = leftAns.first;
+    int rd = rightAns.second;
+    int rh = rightAns.first;
+
+    int height = 1 + max(lh, rh);
+
+    int diameter = max(lh + rh, max(ld, rd));
+
+    return {height, diameter};
+}
+
 BtreeNode<int> *buildTree(int preorder[], int inorder[], int n)
 {
     int preIndex = 0;
@@ -204,11 +225,11 @@ BtreeNode<int> *buildTree(int preorder[], int inorder[], int n)
 
 int main()
 {
-    // BtreeNode<int> *root = takeInputLevelWise();
-    int preorder[] = {3, 9, 20, 15, 7};
-    int inorder[] = {9, 3, 15, 20, 7};
+    BtreeNode<int> *root = takeInputLevelWise();
+    // int preorder[] = {3, 9, 20, 15, 7};
+    // int inorder[] = {9, 3, 15, 20, 7};
 
-    BtreeNode<int> *root = buildTree(preorder, inorder, 5);
+    // BtreeNode<int> *root = buildTree(preorder, inorder, 5);
 
     // printBTree(root);
     // printTreeLevelWise(root);
@@ -219,6 +240,12 @@ int main()
     // cout << "Height of tree = " << heightOfTree(root) << " ";
 
     printBTree(root);
+    int ansHeight = heightDiameter(root).first;
+    int ansDiametter = heightDiameter(root).second;
+
+    cout << ansHeight << endl;
+    ;
+    cout << ansDiametter << endl;
     //     preorderTraversal(root);
     //     cout << endl;
     //     inorderTraversal(root);
