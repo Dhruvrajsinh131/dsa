@@ -139,14 +139,5 @@ int main()
     tree.preorder(tree.root);
     cout << "\n";
 
-    cout << "Postorder Traversal: ";
-    tree.postorder(tree.root);
-    cout << "\n";
-
-    tree.root = tree.deleteNode(tree.root, 30);
-    cout << "After Deleting 30, Inorder Traversal: ";
-    tree.inorder(tree.root);
-    cout << "\n";
-
     return 0;
 }
