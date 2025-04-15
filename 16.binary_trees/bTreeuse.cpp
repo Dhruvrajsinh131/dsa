@@ -21,33 +21,27 @@ void printTree(BtreeNode<int> *root)
 
 BtreeNode<int> *takeInput()
 {
-    int rootData;
-
+    int root;
     cout << "Enter data : " << endl;
-    cin >> rootData;
+    cin >> root;
 
-    if (rootData == -1)
+    if (root == -1)
     {
         return nullptr;
     }
 
-    BtreeNode<int> *root = new BtreeNode<int>(rootData);
-    BtreeNode<int> *leftChild = takeInput();
-    BtreeNode<int> *rightChild = takeInput();
+    BtreeNode<int> *rootNode = new BtreeNode<int>(root);
+    BtreeNode<int> *left = takeInput();
+    BtreeNode<int> *right = takeInput();
 
-    root->left = leftChild;
-    root->right = rightChild;
-    return root;
+    rootNode->left = left;
+    rootNode->right = right;
+
+    return rootNode;
 }
 
 int main()
 {
-    // BtreeNode<int> *root = new BtreeNode(1);
-    // BtreeNode<int> *node1 = new BtreeNode(2);
-    // BtreeNode<int> *node2 = new BtreeNode(3);
-
-    // root->left = node1;
-    // root->right = node2;
 
     BtreeNode<int> *root = takeInput();
 
