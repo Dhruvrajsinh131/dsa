@@ -226,29 +226,11 @@ BtreeNode<int> *buildTree(int preorder[], int inorder[], int n)
 int main()
 {
     BtreeNode<int> *root = takeInputLevelWise();
-    // int preorder[] = {3, 9, 20, 15, 7};
-    // int inorder[] = {9, 3, 15, 20, 7};
-
-    // BtreeNode<int> *root = buildTree(preorder, inorder, 5);
-
-    // printBTree(root);
-    // printTreeLevelWise(root);
-    // mirrorTree(root);
-    // printTreeLevelWise(root);
-
-    // cout << "Node Count = " << countNodes(root) << " ";
-    // cout << "Height of tree = " << heightOfTree(root) << " ";
 
     printBTree(root);
     int ansHeight = heightDiameter(root).first;
     int ansDiametter = heightDiameter(root).second;
-
     cout << ansHeight << endl;
-    ;
+
     cout << ansDiametter << endl;
-    //     preorderTraversal(root);
-    //     cout << endl;
-    //     inorderTraversal(root);
-    //     cout << endl;
-    //     postorderTraversal(root);
 }
