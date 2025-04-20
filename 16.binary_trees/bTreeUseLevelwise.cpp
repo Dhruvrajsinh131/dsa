@@ -178,24 +178,6 @@ int search(int inorder[], int start, int end, int value)
     return -1;
 }
 
-BtreeNode<int> *buildTreeHelper(int preorder[], int inorder[], int &preIndex, int inStart, int inEnd)
-{
-    if (inStart > inEnd)
-    {
-        return nullptr;
-    }
-
-    int rootVal = preorder[preIndex++];
-    BtreeNode<int> *root = new BtreeNode(rootVal);
-
-    int inIndex = search(inorder, inStart, inEnd, rootVal);
-
-    root->left = buildTreeHelper(preorder, inorder, preIndex, inStart, inIndex - 1);
-    root->right = buildTreeHelper(preorder, inorder, preIndex, inIndex + 1, inEnd);
-
-    return root;
-}
-
 pair<int, int> heightDiameter(BtreeNode<int> *root)
 {
     if (!root)
@@ -215,12 +197,6 @@ pair<int, int> heightDiameter(BtreeNode<int> *root)
     int diameter = max(lh + rh, max(ld, rd));
 
     return {height, diameter};
-}
-
-BtreeNode<int> *buildTree(int preorder[], int inorder[], int n)
-{
-    int preIndex = 0;
-    return buildTreeHelper(preorder, inorder, preIndex, 0, n - 1);
 }
 
 int main()
